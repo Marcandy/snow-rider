@@ -10,7 +10,7 @@ var Cachebuster = require('gulp-cachebust')
 var cachebust = new Cachebuster;
 
 gulp.task('build-css', function () {
-  return gulp.src('./styles/all.scss')
+  return gulp.src('./styles/all.scss')//all are imported in tha one scss
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(cachebust.resources())
@@ -20,7 +20,7 @@ gulp.task('build-css', function () {
 });
 
 gulp.task('build-js', [], function() {
-   return gulp.src('views/**/*.js')
+   return gulp.src('views/**/*.js')//it will for all js files not matter how deep
       .pipe(sourcemaps.init())
       .pipe(print())
       .pipe(babel({ presets: ['es2015'] }))

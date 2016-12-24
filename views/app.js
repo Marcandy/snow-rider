@@ -1,7 +1,12 @@
-angular.module('snowrider', [])
+angular.module('snowrider', ['ui.router'])
 .config(function ($stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/');
+
     $stateProvider
         .state('home',{
             url:'/',
-            templateUrl: "./jumbo/jumbo.html"
+            templateUrl: "./views/jumbo/jumbo.html",
+            controller: 'jumboCtrl'
         })
+})

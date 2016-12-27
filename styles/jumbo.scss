@@ -28,6 +28,7 @@
 
         img {
             width: 100%;
+            border-radius: 50%;
         }
 
         h1 {
@@ -82,9 +83,38 @@
                 margin: 12.5px 0;
                 padding: 12.5px 25px;
                 transition: min-width 0.3s;
+                // animation:
+                //     pulse 3s ease infinite alternate,
+                //     nudge 5s linear infinite alternate;
+                animation: bounceIn 5s ease-in-out 2s infinite alternate;
+                border-radius: 20px;
             }
+
         }
     }
+
+//     @keyframes pulse {
+//   0%, 100% {
+//     background-color: red;
+//   }
+//   50% {
+//     background-color: orange;
+//   }
+// }
+//
+// @keyframes nudge {
+//   0%, 100% {
+//     transform: translate(0, 0);
+//   }
+//
+//   50% {
+//     transform: translate(150px, 0);
+//   }
+//
+//   80% {
+//     transform: translate(-150px, 0);
+//   }
+// }
 
     .jumbo-video {
         position: relative;

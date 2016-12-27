@@ -421,7 +421,8 @@ template {
       width: 60%;
       margin-right: 15px; }
     .jumbo .logo img {
-      width: 100%; }
+      width: 100%;
+      border-radius: 50%; }
     .jumbo .logo h1 {
       display: flex;
       width: 40%;
@@ -462,7 +463,9 @@ template {
         color: #fff !important;
         margin: 12.5px 0;
         padding: 12.5px 25px;
-        transition: min-width 0.3s; }
+        transition: min-width 0.3s;
+        animation: bounceIn 5s ease-in-out 2s infinite alternate;
+        border-radius: 20px; }
   .jumbo .jumbo-video {
     position: relative;
     width: 100%;

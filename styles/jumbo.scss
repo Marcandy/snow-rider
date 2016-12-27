@@ -1,6 +1,6 @@
 .jumbo {
   width: 100%;
-  display: flex;
+  // display: flex;
   position: relative;
 }
 
@@ -18,9 +18,9 @@
   }
 
   .jumbo-text {
-    bottom: 0;
     padding: 50px;
     position: absolute;
+    bottom: 0;
     width: 100%;
     left: 0;
     div {
@@ -34,19 +34,36 @@
     display: block;
       h1 {
         font-size: 60px;
-line-height: 70px;
-color: #393939;
-font-weight: normal;
-text-transform: upperc
+        line-height: 70px;
+        color: #393939;
+        font-weight: normal;
+        text-transform: uppercase;
 }
-h2 {
-  font-size: 35px;
-line-height: 45px;
-color: #656565;
-}
+        h2 {
+          font-size: 35px;
+        line-height: 45px;
+        color: #656565;
+        }
+
+        a {
+          background-color: #393939;
+          font-size: 14px;
+          line-height: 22.54px;
+          font-family: "ProximaNova-Semibold" , Arial, sans-serif;
+          font-weight: normal;
+          position: relative;
+          display: inline-block;
+          text-transform: uppercase;
+          text-align: center;
+          min-width: 170px;
+          color: #fff !important;
+          margin: 12.5px 0;
+          padding: 12.5px 25px;
+          transition: min-width 0.3s;
+        }
       }
     }
-  }
+
 
 
 

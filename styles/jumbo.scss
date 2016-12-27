@@ -18,11 +18,12 @@
   }
 
   .jumbo-text {
-    padding: 25px;
+    padding: 10px;
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     width: 100%;
     left: 0;
+    background: transparent;
     div {
     padding-left: 25px;
     padding-right: 25px;
@@ -30,7 +31,7 @@
     padding-bottom: 12.5px;
     position: relative;
     color: #9a9a9a;
-    background-color: #fff;
+    // background-color: #fff;
     display: block;
       h1 {
         font-size: 60px;
@@ -71,6 +72,9 @@
   width: 100%;
   z-index: -1;
   background-image: url('../img/jumbo-overlay.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
   // img {
   //   position: relative;
   //   background-repeat: no-repeat;

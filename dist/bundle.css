@@ -417,11 +417,12 @@ template {
     width: 100%; }
 
 .jumbo .jumbo-text {
-  padding: 25px;
+  padding: 10px;
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   width: 100%;
-  left: 0; }
+  left: 0;
+  background: transparent; }
   .jumbo .jumbo-text div {
     padding-left: 25px;
     padding-right: 25px;
@@ -429,7 +430,6 @@ template {
     padding-bottom: 12.5px;
     position: relative;
     color: #9a9a9a;
-    background-color: #fff;
     display: block; }
     .jumbo .jumbo-text div h1 {
       font-size: 60px;
@@ -462,6 +462,8 @@ template {
   height: 100vh;
   width: 100%;
   z-index: -1;
-  background-image: url("../img/jumbo-overlay.svg"); }
+  background-image: url("../img/jumbo-overlay.svg");
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

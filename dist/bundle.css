@@ -408,7 +408,8 @@ template {
   height: 100vh;
   background-image: url("../img/jumbo-overlay.svg");
   background-repeat: no-repeat;
-  background-size: cover; }
+  background-size: cover;
+  font-family: 'Alegreya', serif; }
   .jumbo .logo {
     position: absolute;
     left: 50px;
@@ -421,7 +422,8 @@ template {
       width: 60%;
       margin-right: 15px; }
     .jumbo .logo img {
-      width: 100%; }
+      width: 100%;
+      border-radius: 50%; }
     .jumbo .logo h1 {
       display: flex;
       width: 40%;
@@ -452,7 +454,6 @@ template {
         background-color: #393939;
         font-size: 14px;
         line-height: 22.54px;
-        font-family: "ProximaNova-Semibold" , Arial, sans-serif;
         font-weight: normal;
         position: relative;
         display: inline-block;
@@ -462,7 +463,9 @@ template {
         color: #fff !important;
         margin: 12.5px 0;
         padding: 12.5px 25px;
-        transition: min-width 0.3s; }
+        transition: min-width 0.3s;
+        animation: bounceIn 5s ease-in-out 3s infinite alternate;
+        border-radius: 20px; }
   .jumbo .jumbo-video {
     position: relative;
     width: 100%;

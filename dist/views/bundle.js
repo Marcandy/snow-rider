@@ -14,6 +14,6 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
 'use strict';
 
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-  // $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
 //# sourceMappingURL=bundle.js.map

@@ -2,15 +2,40 @@
 
 angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
-    $stateProvider.state('home', {
-        url: '/',
-        templateUrl: "./views/jumbo/jumbo.html",
-        controller: 'jumboCtrl'
-    });
+  $stateProvider.state('home', {
+    url: '/',
+    templateUrl: "./views/jumbo/jumbo.html",
+    controller: 'jumboCtrl'
+  }).state('guide', {
+    url: '/guide',
+
+    // templateUrl: "./views/guides/guides.html",
+    // controller: 'guidesCtrl',
+
+    views: {
+      '': { templateUrl: "./views/guides/guides.html" },
+
+      "featured@guide": {
+        templateUrl: './views/gear/resort.html'
+      }
+    }
+
+  });
+  // .state('guide.resort', {
+  //     // parent: 'guide',
+  //     // url: '/ide',
+  //     abstract: true,
+  //     templateUrl: './views/gear/resort.html'
+  //
+  //     // controller: 'guidesCtrl'
+  // })
 });
 "use strict";
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {});
 'use strict';
 
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {

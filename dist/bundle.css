@@ -411,10 +411,19 @@ template {
   position: absolute;
   left: 50px;
   top: 40px;
-  width: 70px;
-  height: 60px; }
+  width: 200px;
+  height: 70px;
+  display: flex; }
+  .jumbo .logo a {
+    display: flex;
+    width: 60%;
+    margin-right: 15px; }
   .jumbo .logo img {
     width: 100%; }
+  .jumbo .logo h1 {
+    display: flex;
+    width: 40%;
+    color: white; }
 
 .jumbo .jumbo-text {
   padding: 10px;

@@ -9,11 +9,22 @@
     position: absolute;
     left: 50px;
     top: 40px;
-    width: 70px;
-    height: 60px;
+    width: 200px;
+    height: 70px;
+    display: flex;
 
+    a {
+      display: flex;
+      width: 60%;
+      margin-right: 15px;
+    }
     img {
       width: 100%;
+    }
+    h1 {
+      display: flex;
+      width: 40%;
+      color: white;
     }
   }
 

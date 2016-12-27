@@ -1,10 +1,8 @@
 .jumbo {
-  height: 100vh;
+  // height: 100vh;
   display: flex;
   position: relative;
-}
 
-.jumbo {
   .logo {
     position: absolute;
     left: 50px;
@@ -26,7 +24,8 @@
       width: 40%;
       color: white;
     }
-  }
+}
+
 
   .jumbo-text {
     padding: 10px;
@@ -81,7 +80,7 @@
   position: absolute;
   width: 100%;
   height: 100vh;
-  z-index: -1;
+  z-index: 1;
   background-image: url('../img/jumbo-overlay.svg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -99,9 +98,11 @@
   // }
 
   video {
-    // z-index: -2;
+    z-index: -2;
     width: 100%;
     height: 100vh;
+    vertical-align: baseline;
+    position: absolute;
   }
 
 }

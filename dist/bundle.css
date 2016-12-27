@@ -403,79 +403,78 @@ template {
   display: none; }
 
 .jumbo {
-  height: 100vh;
   display: flex;
   position: relative; }
-
-.jumbo .logo {
-  position: absolute;
-  left: 50px;
-  top: 40px;
-  width: 200px;
-  height: 70px;
-  display: flex; }
-  .jumbo .logo a {
-    display: flex;
-    width: 60%;
-    margin-right: 15px; }
-  .jumbo .logo img {
-    width: 100%; }
-  .jumbo .logo h1 {
-    display: flex;
-    width: 40%;
-    color: white; }
-
-.jumbo .jumbo-text {
-  padding: 10px;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  left: 0;
-  background: transparent; }
-  .jumbo .jumbo-text div {
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-top: 12.5px;
-    padding-bottom: 12.5px;
-    position: relative;
-    color: #9a9a9a;
-    display: block; }
-    .jumbo .jumbo-text div h1 {
-      font-size: 60px;
-      line-height: 70px;
-      color: #393939;
-      font-weight: normal;
-      text-transform: uppercase; }
-    .jumbo .jumbo-text div h2 {
-      font-size: 35px;
-      line-height: 45px;
-      color: #656565; }
-    .jumbo .jumbo-text div a {
-      background-color: #393939;
-      font-size: 14px;
-      line-height: 22.54px;
-      font-family: "ProximaNova-Semibold" , Arial, sans-serif;
-      font-weight: normal;
-      position: relative;
-      display: inline-block;
-      text-transform: uppercase;
-      text-align: center;
-      min-width: 170px;
-      color: #fff !important;
-      margin: 12.5px 0;
-      padding: 12.5px 25px;
-      transition: min-width 0.3s; }
-
-.jumbo .jumbo-video {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  background-image: url("../img/jumbo-overlay.svg");
-  background-repeat: no-repeat;
-  background-size: cover; }
-  .jumbo .jumbo-video video {
+  .jumbo .logo {
+    position: absolute;
+    left: 50px;
+    top: 40px;
+    width: 200px;
+    height: 70px;
+    display: flex; }
+    .jumbo .logo a {
+      display: flex;
+      width: 60%;
+      margin-right: 15px; }
+    .jumbo .logo img {
+      width: 100%; }
+    .jumbo .logo h1 {
+      display: flex;
+      width: 40%;
+      color: white; }
+  .jumbo .jumbo-text {
+    padding: 10px;
+    position: absolute;
+    bottom: 10px;
     width: 100%;
-    height: 100vh; }
+    left: 0;
+    background: transparent; }
+    .jumbo .jumbo-text div {
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 12.5px;
+      padding-bottom: 12.5px;
+      position: relative;
+      color: #9a9a9a;
+      display: block; }
+      .jumbo .jumbo-text div h1 {
+        font-size: 60px;
+        line-height: 70px;
+        color: #393939;
+        font-weight: normal;
+        text-transform: uppercase; }
+      .jumbo .jumbo-text div h2 {
+        font-size: 35px;
+        line-height: 45px;
+        color: #656565; }
+      .jumbo .jumbo-text div a {
+        background-color: #393939;
+        font-size: 14px;
+        line-height: 22.54px;
+        font-family: "ProximaNova-Semibold" , Arial, sans-serif;
+        font-weight: normal;
+        position: relative;
+        display: inline-block;
+        text-transform: uppercase;
+        text-align: center;
+        min-width: 170px;
+        color: #fff !important;
+        margin: 12.5px 0;
+        padding: 12.5px 25px;
+        transition: min-width 0.3s; }
+  .jumbo .jumbo-video {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background-image: url("../img/jumbo-overlay.svg");
+    background-repeat: no-repeat;
+    background-size: cover; }
+    .jumbo .jumbo-video video {
+      z-index: -2;
+      width: 100%;
+      height: 100vh;
+      vertical-align: baseline;
+      position: absolute; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

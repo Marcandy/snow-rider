@@ -468,11 +468,14 @@ template {
 
 .jumbo .jumbo-video {
   position: absolute;
-  height: 100vh;
   width: 100%;
+  height: 100vh;
   z-index: -1;
   background-image: url("../img/jumbo-overlay.svg");
   background-repeat: no-repeat;
   background-size: cover; }
+  .jumbo .jumbo-video video {
+    width: 100%;
+    height: 100vh; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

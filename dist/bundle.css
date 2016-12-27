@@ -434,10 +434,7 @@ template {
     z-index: 1;
     background: transparent; }
     .jumbo .jumbo-text div {
-      padding-left: 25px;
-      padding-right: 25px;
-      padding-top: 12.5px;
-      padding-bottom: 12.5px;
+      padding: 12.5px 25px;
       position: relative;
       color: #9a9a9a;
       display: block; }
@@ -474,9 +471,9 @@ template {
     overflow: hidden; }
     .jumbo .jumbo-video video {
       position: absolute;
-      width: 1920px;
-      height: 815px;
+      width: 1800px;
+      height: 767px;
       display: block;
-      top: 0px; }
+      top: 0; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

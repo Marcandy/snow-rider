@@ -408,7 +408,8 @@ template {
   height: 100vh;
   background-image: url("../img/jumbo-overlay.svg");
   background-repeat: no-repeat;
-  background-size: cover; }
+  background-size: cover;
+  font-family: 'Alegreya', serif; }
   .jumbo .logo {
     position: absolute;
     left: 50px;
@@ -453,7 +454,6 @@ template {
         background-color: #393939;
         font-size: 14px;
         line-height: 22.54px;
-        font-family: "ProximaNova-Semibold" , Arial, sans-serif;
         font-weight: normal;
         position: relative;
         display: inline-block;
@@ -464,7 +464,7 @@ template {
         margin: 12.5px 0;
         padding: 12.5px 25px;
         transition: min-width 0.3s;
-        animation: bounceIn 5s ease-in-out 2s infinite alternate;
+        animation: bounceIn 5s ease-in-out 3s infinite alternate;
         border-radius: 20px; }
   .jumbo .jumbo-video {
     position: relative;

@@ -11,6 +11,7 @@
     background-image: url('../img/jumbo-overlay.svg');
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: 'Alegreya', serif;
 
     .logo {
         position: absolute;
@@ -72,7 +73,7 @@
                 background-color: #393939;
                 font-size: 14px;
                 line-height: 22.54px;
-                font-family: "ProximaNova-Semibold" , Arial, sans-serif;
+                // font-family: "ProximaNova-Semibold" , Arial, sans-serif;
                 font-weight: normal;
                 position: relative;
                 display: inline-block;
@@ -86,7 +87,7 @@
                 // animation:
                 //     pulse 3s ease infinite alternate,
                 //     nudge 5s linear infinite alternate;
-                animation: bounceIn 5s ease-in-out 2s infinite alternate;
+                animation: bounceIn 5s ease-in-out 3s infinite alternate;
                 border-radius: 20px;
             }
 

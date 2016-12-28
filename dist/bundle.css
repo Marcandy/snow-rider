@@ -479,4 +479,11 @@ template {
       display: block;
       top: 0; }
 
+.guides {
+  background-image: url("../img/guidesback.jpg");
+  color: white;
+  font-family: 'Alegreya', serif; }
+  .guides h1 {
+    margin: 0; }
+
 /*# sourceMappingURL=maps/bundle.css.map */

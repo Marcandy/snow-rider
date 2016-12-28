@@ -19,7 +19,7 @@ angular.module('snowrider', ['ui.router'])
               '': {templateUrl: "./views/guides/guides.html"},
 
               "featured@guide": {
-                templateUrl: './views/gear/resort.html'
+                templateUrl: './views/guides/resort.html'
               }
             }
 

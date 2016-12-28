@@ -27,12 +27,8 @@ angular.module('snowrider', ['ui.router'])
             }
 
         })
-        // .state('guide.resort', {
-        //     // parent: 'guide',
-        //     // url: '/ide',
-        //     abstract: true,
-        //     templateUrl: './views/gear/resort.html'
-        //
-        //     // controller: 'guidesCtrl'
-        // })
+        .state('gear', {
+            url: '/gear',
+            templateUrl: './views/gear/gear.html'
+        })
 })

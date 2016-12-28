@@ -9,4 +9,27 @@ angular.module('snowrider', ['ui.router'])
             templateUrl: "./views/jumbo/jumbo.html",
             controller: 'jumboCtrl'
         })
+        .state('guide', {
+            url:'/guide',
+
+            // templateUrl: "./views/guides/guides.html",
+            // controller: 'guidesCtrl',
+
+            views: {
+              '': {templateUrl: "./views/guides/guides.html"},
+
+              "featured@guide": {
+                templateUrl: './views/gear/resort.html'
+              }
+            }
+
+        })
+        // .state('guide.resort', {
+        //     // parent: 'guide',
+        //     // url: '/ide',
+        //     abstract: true,
+        //     templateUrl: './views/gear/resort.html'
+        //
+        //     // controller: 'guidesCtrl'
+        // })
 })

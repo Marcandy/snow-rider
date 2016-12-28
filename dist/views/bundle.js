@@ -18,7 +18,7 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
       '': { templateUrl: "./views/guides/guides.html" },
 
       "featured@guide": {
-        templateUrl: './views/gear/resort.html'
+        templateUrl: './views/guides/resort.html'
       }
     }
 

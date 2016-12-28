@@ -479,6 +479,11 @@ template {
       display: block;
       top: 0; }
 
+#page-wrap {
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 1rem; }
+
 .guides {
   background-image: url("../img/guidesback.jpg");
   color: white;

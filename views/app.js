@@ -16,7 +16,10 @@ angular.module('snowrider', ['ui.router'])
             // controller: 'guidesCtrl',
 
             views: {
-              '': {templateUrl: "./views/guides/guides.html"},
+              '': {
+                templateUrl: "./views/guides/guides.html",
+                controller: 'guidesCtrl',
+            },
 
               "featured@guide": {
                 templateUrl: './views/guides/resort.html'

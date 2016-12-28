@@ -77,10 +77,11 @@ Consider getting a stomp pad. This is a grip pad that goes on your snowboard, ju
   </div>
 
 <!--  might make this a horizontal slide -->
-  <h1>Moutains</h1>
+<a href=""><h1 ng-click='val = !val'>Moutains</h1></a>
+
 
 </section>
 
 
 
-<div ui-view='featured'></div>
+<div ng-show='val' ui-view='featured'></div>

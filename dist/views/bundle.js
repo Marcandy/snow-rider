@@ -15,7 +15,10 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
     // controller: 'guidesCtrl',
 
     views: {
-      '': { templateUrl: "./views/guides/guides.html" },
+      '': {
+        templateUrl: "./views/guides/guides.html",
+        controller: 'guidesCtrl'
+      },
 
       "featured@guide": {
         templateUrl: './views/guides/resort.html'
@@ -35,7 +38,10 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
 "use strict";
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {});
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+});
 'use strict';
 
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {

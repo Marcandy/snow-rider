@@ -39,13 +39,31 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
 angular.module('snowrider').service('mainService', function ($http) {
 
   // google places Map api key
-  var api = 'AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
+  var key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
 
   // with geoplugin api
   this.city = geoplugin_city();
   this.state = geoplugin_region();
   this.lat = geoplugin_latitude();
   this.long = geoplugin_longitude();
+
+  // search request
+  var searchKeyword = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
+  // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
+
+  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=skiing+or+snowboarding';
+  var location = '&location=' + this.lat + ',' + this.long;
+  var radius = '&radius=30000';
+
+  this.getResorts = function (geo) {
+    // when to convert the user iputed city name or zipcode
+    return $http({
+      method: 'GET',
+      url: searchText + location + radius + key
+    }).then(function (response) {
+      return response.results;
+    });
+  };
 });
 'use strict';
 
@@ -110,6 +128,8 @@ angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
 
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService) {
 
-  $scope.city = mainService.city;
+  $scope.resorts = mainService.getResorts().then(function (results) {
+    $scope.data = results;
+  });
 });
 //# sourceMappingURL=bundle.js.map

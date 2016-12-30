@@ -1,5 +1,7 @@
 angular.module('snowrider')
   .controller('searchCtrl', function ($scope, mainService) {
 
-    $scope.city = mainService.city;
+    $scope.resorts = mainService.getResorts().then(function (results) {
+      $scope.data = results;
+    })
   })

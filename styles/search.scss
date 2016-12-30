@@ -1,15 +1,22 @@
 .search {
   // display: flex;
-  width: 100%;
+  // width: 100%;
+  #map {
+    height: 300px;
+    width: 300px;
+  }
 
   .search-main {
     display: flex;
     width: 70%;
 
+    li {
+      display: flex;
+    }
   }
 
   .search-right {
     display: flex;
-    width: 30%;
+    width: 150px;
   }
 }

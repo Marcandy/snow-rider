@@ -491,13 +491,18 @@ template {
   .guides h1 {
     margin: 0; }
 
-.search {
-  width: 100%; }
-  .search .search-main {
-    display: flex;
-    width: 70%; }
-  .search .search-right {
-    display: flex;
-    width: 30%; }
+.search #map {
+  height: 300px;
+  width: 300px; }
+
+.search .search-main {
+  display: flex;
+  width: 70%; }
+  .search .search-main li {
+    display: flex; }
+
+.search .search-right {
+  display: flex;
+  width: 150px; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

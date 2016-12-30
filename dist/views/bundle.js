@@ -117,12 +117,6 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
-});
-'use strict';
-
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
   $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
@@ -136,5 +130,11 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
       $scope.resorts = results;
     });
   };
+});
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
 });
 //# sourceMappingURL=bundle.js.map

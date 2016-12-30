@@ -38,7 +38,14 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
 
 angular.module('snowrider').service('mainService', function ($http) {
 
-  this.test = 'boom';
+  // google places Map api key
+  var api = 'AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
+
+  // with geoplugin api
+  this.city = geoplugin_city();
+  this.state = geoplugin_region();
+  this.lat = geoplugin_latitude();
+  this.long = geoplugin_longitude();
 });
 'use strict';
 
@@ -103,6 +110,6 @@ angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
 
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService) {
 
-  $scope.test = mainService.test;
+  $scope.city = mainService.city;
 });
 //# sourceMappingURL=bundle.js.map

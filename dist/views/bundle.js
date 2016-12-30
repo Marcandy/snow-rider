@@ -51,7 +51,7 @@ angular.module('snowrider').service('mainService', function ($http) {
   var searchKeyword = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
   // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
 
-  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=skiing+or+snowboarding';
+  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboarding';
   var location = '&location=' + this.lat + ',' + this.long;
   var radius = '&radius=30000';
 
@@ -61,7 +61,9 @@ angular.module('snowrider').service('mainService', function ($http) {
       method: 'GET',
       url: searchText + location + radius + key
     }).then(function (response) {
-      return response.results;
+      console.log(response);
+      // response.addHeader("Access-Control-Allow-Origin", "*");
+      return response.data.results;
     });
   };
 });
@@ -115,21 +117,21 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
+angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
+  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+});
+'use strict';
+
 angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
 
   $scope.val = false;
 });
 'use strict';
 
-angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
-});
-'use strict';
-
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService) {
 
-  $scope.resorts = mainService.getResorts().then(function (results) {
-    $scope.data = results;
+  mainService.getResorts().then(function (results) {
+    $scope.resorts = results;
   });
 });
 //# sourceMappingURL=bundle.js.map

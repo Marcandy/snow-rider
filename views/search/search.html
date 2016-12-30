@@ -1,6 +1,12 @@
-<section>
+<section class="search">
+
+  <div class="search-main" ng-repeat='resort in resorts'>
+    <li >{{resort}}</li>
+  </div>
+
+  <div class="search-right">
+    <button type="button" ng-click='getResorts()'>Get Resorts</button>
+  </div>
 
 
-  {{resorts}}
-  
 </section>

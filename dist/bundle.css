@@ -491,4 +491,13 @@ template {
   .guides h1 {
     margin: 0; }
 
+.search {
+  width: 100%; }
+  .search .search-main {
+    display: flex;
+    width: 70%; }
+  .search .search-right {
+    display: flex;
+    width: 30%; }
+
 /*# sourceMappingURL=maps/bundle.css.map */

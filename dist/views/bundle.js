@@ -28,19 +28,17 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
     }).state('gear', {
         url: '/gear',
         templateUrl: './views/gear/gear.html'
+    }).state('search', {
+        url: '/search',
+        templateUrl: './views/search/search.html',
+        controller: 'searchCtrl'
     });
 });
-"use strict";
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+angular.module('snowrider').service('mainService', function ($http) {
 
-  $scope.val = false;
-});
-'use strict';
-
-angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+  this.test = 'boom';
 });
 'use strict';
 
@@ -89,5 +87,22 @@ angular.module('snowrider').directive('gearDirective', function () {
         }
 
     };
+});
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+});
+'use strict';
+
+angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
+  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+});
+'use strict';
+
+angular.module('snowrider').controller('searchCtrl', function ($scope, mainService) {
+
+  $scope.test = mainService.test;
 });
 //# sourceMappingURL=bundle.js.map

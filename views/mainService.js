@@ -22,7 +22,6 @@ angular.module('snowrider')
 
       this.getResorts = function(geo) { // when to convert the user iputed city name or zipcode
         if(geo) {
-
           location = '&location=' + geo.lat + ',' + geo.lng;
           console.log(location);
         }

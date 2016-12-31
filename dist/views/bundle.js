@@ -132,12 +132,14 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
 
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
-    service.textSearch({
-      location: currentL,
-      radius: 30000,
-      query: ['ski, snowboard resorts'],
-      rankBy: google.maps.places.RankBy.DISTANCE
-    }, callback);
+
+    // service.textSearch({
+    //   location: currentL,
+    //   radius: 30000,
+    //   query: ['ski, snowboard resorts'],
+    //   rankBy: google.maps.places.RankBy.DISTANCE
+    // }, callback);
+    callback('n', 'OK');
   };
 
   function callback(results, status) {
@@ -221,6 +223,12 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+});
+'use strict';
+
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
   $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
@@ -249,13 +257,9 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
     }).then(function (geo) {
       console.log(geo);
       $scope.getResorts(geo);
+    }).then(function () {
+      mapService.initMap(geoCode);
     });
   };
-});
-'use strict';
-
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
 });
 //# sourceMappingURL=bundle.js.map

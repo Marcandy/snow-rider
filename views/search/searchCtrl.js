@@ -23,6 +23,9 @@ let geoData;
         console.log(geo);
         $scope.getResorts(geo);
       })
+      .then(function () {
+        mapService.initMap(geoCode);
+      })
     }
 
 

@@ -66,37 +66,60 @@ angular.module('snowrider').service('mainService', function ($http) {
       return response.data.results;
     });
   };
+});
+'use strict';
 
-  var map;
-  var service;
-  var infowindow;
+angular.module('snowrider').service('mapService', function ($http, mainService) {
 
-  this.initialize = function () {
-    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+  var map = void 0;
+  var service = void 0;
+  var infowindow = void 0;
 
+  this.initMap = function () {
+    //location
+    var currentL = { lat: Number(mainService.lat), lng: Number(mainService.long) };
+
+    //creating the new map with the geocode of the currentL
     map = new google.maps.Map(document.getElementById('map'), {
-      center: pyrmont,
+      center: currentL,
       zoom: 15
     });
 
-    var request = {
-      location: pyrmont,
-      radius: '500',
-      types: ['store']
-    };
-
+    infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
+    service.nearbySearch({
+      location: currentL,
+      radius: 25000,
+      type: ['park']
+    }, callback);
   };
 
   function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
-        var place = results[i];
-        createMarker(results[i]);
+        createMarker(results[i]); // creating a makrer for each of the result in the map
       }
     }
   }
+
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+  }
+});
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
 });
 'use strict';
 
@@ -148,18 +171,12 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
-});
-'use strict';
-
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
   $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
 'use strict';
 
-angular.module('snowrider').controller('searchCtrl', function ($scope, mainService) {
+angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
 
   $scope.getResorts = function (zipOcity) {
     // whne ng-clicked to initiate
@@ -168,6 +185,8 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
     });
   };
 
-  mainService.initialize();
+  $scope.showMap = function () {
+    mapService.initMap();
+  };
 });
 //# sourceMappingURL=bundle.js.map

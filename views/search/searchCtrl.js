@@ -17,6 +17,8 @@ angular.module('snowrider')
       mapService.initMap();
     }
 
+  $scope.showMap(); //initialize an empty map on load
+  
 
 
     $scope.geoCode = function (zipCity) {

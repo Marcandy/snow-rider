@@ -19,7 +19,7 @@ angular.module('snowrider')
         //creating the new map with the geocode of the currentL
         map = new google.maps.Map(document.getElementById('map'), {
           center: currentL,
-          zoom: 10
+          zoom: 12
         });
 
         infowindow = new google.maps.InfoWindow();
@@ -31,7 +31,10 @@ angular.module('snowrider')
         //   query: ['ski, snowboard resorts'],
         //   rankBy: google.maps.places.RankBy.DISTANCE
         // }, callback);
-        callback(results);
+        if (results || mainService.pass()) {// add this condition in order to prevent the call unless an array from the result or directly from the mainService
+          callback(results);// that way we can we the init map function function as a way to center to the curren location
+        }
+
       }
 
 

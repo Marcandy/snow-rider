@@ -60,7 +60,7 @@ angular.module('snowrider').service('mainService', function ($http) {
   this.getResorts = function (geo) {
     // when to convert the user iputed city name or zipcode
     if (geo) {
-      location = '&location=' + geo.lat + ',' + geo.lng;
+      location = '&location=' + geo.lat + ',' + geo.lng; //had to reset the location parameter correctly
       console.log(location);
     }
     return $http({
@@ -131,7 +131,7 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
     //creating the new map with the geocode of the currentL
     map = new google.maps.Map(document.getElementById('map'), {
       center: currentL,
-      zoom: 10
+      zoom: 12
     });
 
     infowindow = new google.maps.InfoWindow();
@@ -143,7 +143,10 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
     //   query: ['ski, snowboard resorts'],
     //   rankBy: google.maps.places.RankBy.DISTANCE
     // }, callback);
-    callback(results);
+    if (results || mainService.pass()) {
+      // add this condition in order to prevent the call unless an array from the result or directly from the mainService
+      callback(results); // that way we can we the init map function function as a way to center to the curren location
+    }
   };
 
   function callback(data) {
@@ -231,14 +234,37 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+});
+'use strict';
+
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
   $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+angular.module('snowrider').directive('menuDirective', function () {
 
-  $scope.val = false;
+    return {
+        restrict: 'EA',
+
+        templateUrl: './views/menu/menu.html',
+
+        scope: {
+            // lesson: '=',
+            // datAlert: '&'
+        },
+
+        controller: function controller($scope) {},
+
+        link: function link(scope, elem, attrs) {//elem attribute was different, so it was not applying
+
+
+        }
+
+    };
 });
 'use strict';
 
@@ -259,6 +285,9 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
   $scope.showMap = function () {
     mapService.initMap();
   };
+
+  $scope.showMap(); //initialize an empty map on load
+
 
   $scope.geoCode = function (zipCity) {
 

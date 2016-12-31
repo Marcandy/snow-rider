@@ -11,9 +11,16 @@ angular.module('snowrider')
       mapService.initMap();
     }
 
+let geoData;
     $scope.geoCode = function (zipCity) {
+
       mainService.geoCode(zipCity).then(function (response) {
         console.log(response);
+        geoData =  response;
+        return geoData
+      })
+      .then(function (geo) {
+        $scope.getResorts(geo);
       })
     }
 

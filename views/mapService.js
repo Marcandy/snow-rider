@@ -12,23 +12,34 @@ angular.module('snowrider')
         //creating the new map with the geocode of the currentL
         map = new google.maps.Map(document.getElementById('map'), {
           center: currentL,
-          zoom: 15
+          zoom: 10
         });
 
         infowindow = new google.maps.InfoWindow();
         service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({
+        service.textSearch({
           location: currentL,
-          radius: 25000,
-          type: ['park']
+          radius: 30000,
+          query: ['ski, snowboard resorts'],
+          rankBy: google.maps.places.RankBy.DISTANCE
         }, callback);
       }
 
+
+
       function callback(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]); // creating a makrer for each of the result in the map
+          // console.log(results)
+          // for (var i = 0; i < results.length; i++) {
+          //   createMarker(results[i]); // creating a makrer for each of the result in the map
+          // }
+          var data = mainService.pass(); //
+          if (data) { //made a condition to not initia map right away
+            for (var i = 0; i < data.length; i++) {
+              createMarker(data[i]); // creating a makrer for each of the result in the map
+            }
           }
+
         }
       }
 
@@ -40,7 +51,9 @@ angular.module('snowrider')
         });
 
         google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
+          infowindow.setContent(place.name + '<br>' + place.formatted_address);
+          // infowindow.setContent(place.formatted_address);
+
           infowindow.open(map, this);
         });
       }

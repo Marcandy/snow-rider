@@ -41,6 +41,8 @@ angular.module('snowrider').service('mainService', function ($http) {
   // google places Map api key
   var key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
 
+  var resorts;
+
   // with geoplugin api
   this.city = geoplugin_city();
   this.state = geoplugin_region();
@@ -51,20 +53,26 @@ angular.module('snowrider').service('mainService', function ($http) {
   var searchKeyword = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
   // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
 
-  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboarding';
+  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboard+resorts&rankBy=distance';
   var location = '&location=' + this.lat + ',' + this.long;
-  var radius = '&radius=30000';
+  var radius = '&radius=20000';
 
   this.getResorts = function (geo) {
     // when to convert the user iputed city name or zipcode
     return $http({
       method: 'GET',
-      url: searchText + location + radius + key
+      url: searchText + location + key
     }).then(function (response) {
       console.log(response);
+      resorts = response.data.results;
+      console.log(resorts);
       // response.addHeader("Access-Control-Allow-Origin", "*");
       return response.data.results;
     });
+  };
+
+  this.pass = function () {
+    return resorts;
   };
 });
 'use strict';
@@ -82,22 +90,31 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
     //creating the new map with the geocode of the currentL
     map = new google.maps.Map(document.getElementById('map'), {
       center: currentL,
-      zoom: 15
+      zoom: 10
     });
 
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
+    service.textSearch({
       location: currentL,
-      radius: 25000,
-      type: ['park']
+      radius: 30000,
+      query: ['ski, snowboard resorts'],
+      rankBy: google.maps.places.RankBy.DISTANCE
     }, callback);
   };
 
   function callback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-        createMarker(results[i]); // creating a makrer for each of the result in the map
+      // console.log(results)
+      // for (var i = 0; i < results.length; i++) {
+      //   createMarker(results[i]); // creating a makrer for each of the result in the map
+      // }
+      var data = mainService.pass(); //
+      if (data) {
+        //made a condition to not initia map right away
+        for (var i = 0; i < data.length; i++) {
+          createMarker(data[i]); // creating a makrer for each of the result in the map
+        }
       }
     }
   }
@@ -110,16 +127,12 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
     });
 
     google.maps.event.addListener(marker, 'click', function () {
-      infowindow.setContent(place.name);
+      infowindow.setContent(place.name + '<br>' + place.formatted_address);
+      // infowindow.setContent(place.formatted_address);
+
       infowindow.open(map, this);
     });
   }
-});
-'use strict';
-
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
 });
 'use strict';
 
@@ -168,6 +181,12 @@ angular.module('snowrider').directive('gearDirective', function () {
         }
 
     };
+});
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
 });
 'use strict';
 

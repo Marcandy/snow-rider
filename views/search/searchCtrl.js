@@ -11,4 +11,6 @@ angular.module('snowrider')
       mapService.initMap();
     }
 
+    
+
   })

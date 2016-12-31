@@ -17,16 +17,19 @@ angular.module('snowrider')
       // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
 
       let searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboard+resorts&rankBy=distance'
-      let location = '&location=' + this.lat + ',' + this.long;
+      var  location = '&location=' + this.lat + ',' + this.long;
       let radius = '&radius=20000';
 
       this.getResorts = function(geo) { // when to convert the user iputed city name or zipcode
-        if(!geo) {
-          geo = location
+        if(geo) {
+          location = '&location=' + geo.lat + ',' + geo.lng; //had to reset the location parameter correctly
+          console.log(location);
         }
         return $http({
+
+
           method: 'GET',
-          url: searchText + geo + key,
+          url: searchText + location + key,
           //  'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise' + key
 
 
@@ -67,7 +70,7 @@ angular.module('snowrider')
               let geoData = {};
 
               geoData.lat = results.data.results[0].geometry.location.lat;
-              geoData.lon = results.data.results[0].geometry.location.lng;
+              geoData.lng = results.data.results[0].geometry.location.lng;
               // geoData.zip = zipCity;
               // const address = results.data.results[0].formatted_address;
               // geoData.address = address.slice(0, address.indexOf(zip)).trim();

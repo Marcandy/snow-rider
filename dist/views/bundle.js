@@ -75,30 +75,35 @@ angular.module('snowrider').service('mainService', function ($http) {
     return resorts;
   };
 
-  var zipcodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-  var zipcodeComponents = '&components=postal_code:';
+  var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  var components1 = '&components=administrative_area_level_3:';
+  var components2 = '|postal_code:';
 
-  this.getZipcodeData = function (zip) {
+  this.geoCode = function (zipCity) {
     //console.log(zipcodeBaseUrl + zip + zipcodeComponents + zip + '&sensor=true' + zipcodeKey);
     return $http({
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA' + key,
-      method: 'GET'
+      method: 'GET',
+      url: geoUrl + zipCity + key
     }).then(function (results) {
-      if (results.data.status === "ZERO_RESULTS") {
-        return false;
-      }
+
+      // if(results.data.status === "ZERO_RESULTS") {
+      //   return false;
+      // }
+
       console.log(results);
       var geoData = {};
-      geoData.zip = zip;
+
       geoData.lat = results.data.results[0].geometry.location.lat;
       geoData.lon = results.data.results[0].geometry.location.lng;
-      var address = results.data.results[0].formatted_address;
-      geoData.address = address.slice(0, address.indexOf(zip)).trim();
-      geoData.city = address.slice(0, address.indexOf(zip)).trim(); //parse the data down to just the city and state
+      // geoData.zip = zipCity;
+      // const address = results.data.results[0].formatted_address;
+      // geoData.address = address.slice(0, address.indexOf(zip)).trim();
+      // geoData.city = address.slice(0, address.indexOf(zip)).trim();//parse the data down to just the city and state
       return geoData;
     });
   };
-  this.getZipcodeData();
+
+  // '"https://maps.googleapis.com/maps/api/geocode/json?address=Dallas&components=administrative_area:Dallas|postal_code:Dallas&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg"'
 });
 'use strict';
 
@@ -215,6 +220,11 @@ angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
 });
 'use strict';
 
+angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
+  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+});
+'use strict';
+
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
 
   $scope.getResorts = function (zipOcity) {
@@ -227,10 +237,11 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
   $scope.showMap = function () {
     mapService.initMap();
   };
-});
-'use strict';
 
-angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+  $scope.geoCode = function (zipCity) {
+    mainService.geoCode(zipCity).then(function (response) {
+      console.log(response);
+    });
+  };
 });
 //# sourceMappingURL=bundle.js.map

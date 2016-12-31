@@ -1,5 +1,5 @@
 angular.module('snowrider')
-  .controller('searchCtrl', function ($scope, mainService,mapService) {
+  .controller('searchCtrl', function ($scope, mainService, mapService) {
 
     $scope.getResorts = function (zipOcity) {// whne ng-clicked to initiate
       mainService.getResorts().then(function (results) {
@@ -11,6 +11,11 @@ angular.module('snowrider')
       mapService.initMap();
     }
 
-    
+    $scope.geoCode = function (zipCity) {
+      mainService.geoCode(zipCity).then(function (response) {
+        console.log(response);
+      })
+    }
+
 
   })

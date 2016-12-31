@@ -21,12 +21,12 @@ angular.module('snowrider')
       let radius = '&radius=20000';
 
       this.getResorts = function(geo) { // when to convert the user iputed city name or zipcode
-        if(!geo) {
-          geo = location
+        if(geo) {
+          location = '&location=' + geo.lat + ',' + geo.lng;
         }
         return $http({
           method: 'GET',
-          url: searchText + geo + key,
+          url: searchText + location + key,
           //  'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise' + key
 
 

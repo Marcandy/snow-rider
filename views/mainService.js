@@ -67,7 +67,7 @@ angular.module('snowrider')
               let geoData = {};
 
               geoData.lat = results.data.results[0].geometry.location.lat;
-              geoData.lon = results.data.results[0].geometry.location.lng;
+              geoData.lng = results.data.results[0].geometry.location.lng;
               // geoData.zip = zipCity;
               // const address = results.data.results[0].formatted_address;
               // geoData.address = address.slice(0, address.indexOf(zip)).trim();

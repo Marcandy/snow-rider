@@ -5,12 +5,14 @@ angular.module('snowrider')
     let service;
     let infowindow;
     let  currentL;
-    this.initMap = function(geo) {
+    this.initMap = function(geo, results) {
       //location
       if (geo) {
-        currentL = geo
+        console.log(geo);
+        currentL = geo;
+        // {lat: Number(geo.lat), lng: Number(geo.lng)
       } else {
-        currentL == {lat: Number(mainService.lat), lng: Number(mainService.long)};
+        currentL = {lat: Number(mainService.lat), lng: Number(mainService.long)};
       }
 
 
@@ -29,25 +31,28 @@ angular.module('snowrider')
         //   query: ['ski, snowboard resorts'],
         //   rankBy: google.maps.places.RankBy.DISTANCE
         // }, callback);
-        callback('n', 'OK');
+        callback(results);
       }
 
 
 
-      function callback(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
+      function callback(data) {
+        // if (status === google.maps.places.PlacesServiceStatus.OK) {
           // console.log(results)
           // for (var i = 0; i < results.length; i++) {
           //   createMarker(results[i]); // creating a makrer for each of the result in the map
           // }
-          var data = mainService.pass(); //
+          var arr;
+          console.log(data);
           if (data) { //made a condition to not initia map right away
-            for (var i = 0; i < data.length; i++) {
-              createMarker(data[i]); // creating a makrer for each of the result in the map
-            }
+            arr = data;
+          } else {
+            arr = mainService.pass();
           }
-
-        }
+          for (var i = 0; i < arr.length; i++) {
+            createMarker(arr[i]); // creating a makrer for each of the result in the map
+          }
+        // }
       }
 
       function createMarker(place) {

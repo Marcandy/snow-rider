@@ -97,7 +97,7 @@ angular.module('snowrider').service('mainService', function ($http) {
       var geoData = {};
 
       geoData.lat = results.data.results[0].geometry.location.lat;
-      geoData.lon = results.data.results[0].geometry.location.lng;
+      geoData.lng = results.data.results[0].geometry.location.lng;
       // geoData.zip = zipCity;
       // const address = results.data.results[0].formatted_address;
       // geoData.address = address.slice(0, address.indexOf(zip)).trim();
@@ -116,12 +116,14 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
   var service = void 0;
   var infowindow = void 0;
   var currentL = void 0;
-  this.initMap = function (geo) {
+  this.initMap = function (geo, results) {
     //location
     if (geo) {
+      console.log(geo);
       currentL = geo;
+      // {lat: Number(geo.lat), lng: Number(geo.lng)
     } else {
-      currentL == { lat: Number(mainService.lat), lng: Number(mainService.long) };
+      currentL = { lat: Number(mainService.lat), lng: Number(mainService.long) };
     }
 
     //creating the new map with the geocode of the currentL
@@ -139,23 +141,27 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
     //   query: ['ski, snowboard resorts'],
     //   rankBy: google.maps.places.RankBy.DISTANCE
     // }, callback);
-    callback('n', 'OK');
+    callback(results);
   };
 
-  function callback(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      // console.log(results)
-      // for (var i = 0; i < results.length; i++) {
-      //   createMarker(results[i]); // creating a makrer for each of the result in the map
-      // }
-      var data = mainService.pass(); //
-      if (data) {
-        //made a condition to not initia map right away
-        for (var i = 0; i < data.length; i++) {
-          createMarker(data[i]); // creating a makrer for each of the result in the map
-        }
-      }
+  function callback(data) {
+    // if (status === google.maps.places.PlacesServiceStatus.OK) {
+    // console.log(results)
+    // for (var i = 0; i < results.length; i++) {
+    //   createMarker(results[i]); // creating a makrer for each of the result in the map
+    // }
+    var arr;
+    console.log(data);
+    if (data) {
+      //made a condition to not initia map right away
+      arr = data;
+    } else {
+      arr = mainService.pass();
     }
+    for (var i = 0; i < arr.length; i++) {
+      createMarker(arr[i]); // creating a makrer for each of the result in the map
+    }
+    // }
   }
 
   function createMarker(place) {
@@ -236,18 +242,22 @@ angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
 
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
 
+  var geoData = void 0;
+  var data;
+
   $scope.getResorts = function (zipOcity) {
     // whne ng-clicked to initiate
-    mainService.getResorts().then(function (results) {
-      $scope.resorts = results;
+    mainService.getResorts(zipOcity).then(function (results) {
+      $scope.resorts = results; // so i can scope it
+      return results;
     });
+    //  return data;
   };
 
   $scope.showMap = function () {
     mapService.initMap();
   };
 
-  var geoData = void 0;
   $scope.geoCode = function (zipCity) {
 
     mainService.geoCode(zipCity).then(function (response) {
@@ -256,9 +266,17 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
       return geoData;
     }).then(function (geo) {
       console.log(geo);
-      $scope.getResorts(geo);
-    }).then(function () {
-      mapService.initMap(geoCode);
+      // var data = $scope.getResorts(geo);
+      // console.log($scope.getResorts(geo));
+
+      // return  $scope.getResorts(geo)
+      return mainService.getResorts(geo).then(function (results) {
+        $scope.resorts = results; // so i can scope it
+        return results;
+      });
+    }).then(function (results) {
+      console.log(results);
+      mapService.initMap(geoData, results);
     });
   };
 });

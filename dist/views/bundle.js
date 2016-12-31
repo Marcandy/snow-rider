@@ -59,12 +59,14 @@ angular.module('snowrider').service('mainService', function ($http) {
 
   this.getResorts = function (geo) {
     // when to convert the user iputed city name or zipcode
-    if (!geo) {
-      geo = location;
+    if (geo) {
+      location = '&location=' + geo.lat + ',' + geo.lng;
+      console.log(location);
     }
     return $http({
+
       method: 'GET',
-      url: searchText + geo + key
+      url: searchText + location + key
     }).then(function (response) {
       console.log(response);
       resorts = response.data.results;
@@ -229,14 +231,14 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
+angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
+  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
 'use strict';
 
-angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
 });
 'use strict';
 
@@ -247,7 +249,7 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
 
   $scope.getResorts = function (zipOcity) {
     // whne ng-clicked to initiate
-    mainService.getResorts(zipOcity).then(function (results) {
+    mainService.getResorts().then(function (results) {
       $scope.resorts = results; // so i can scope it
       return results;
     });
@@ -276,6 +278,7 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
       });
     }).then(function (results) {
       console.log(results);
+      console.log(geoData);
       mapService.initMap(geoData, results);
     });
   };

@@ -20,6 +20,7 @@ let geoData;
         return geoData
       })
       .then(function (geo) {
+        console.log(geo);
         $scope.getResorts(geo);
       })
     }

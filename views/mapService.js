@@ -4,10 +4,15 @@ angular.module('snowrider')
     let map;
     let service;
     let infowindow;
-
-    this.initMap = function() {
+    let  currentL;
+    this.initMap = function(geo) {
       //location
-        var currentL = {lat: Number(mainService.lat), lng: Number(mainService.long)};
+      if (geo) {
+        currentL = geo
+      } else {
+        currentL == {lat: Number(mainService.lat), lng: Number(mainService.long)};
+      }
+
 
         //creating the new map with the geocode of the currentL
         map = new google.maps.Map(document.getElementById('map'), {

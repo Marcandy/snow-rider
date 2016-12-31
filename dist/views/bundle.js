@@ -59,9 +59,12 @@ angular.module('snowrider').service('mainService', function ($http) {
 
   this.getResorts = function (geo) {
     // when to convert the user iputed city name or zipcode
+    if (!geo) {
+      geo = location;
+    }
     return $http({
       method: 'GET',
-      url: searchText + location + key
+      url: searchText + geo + key
     }).then(function (response) {
       console.log(response);
       resorts = response.data.results;
@@ -112,10 +115,14 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
   var map = void 0;
   var service = void 0;
   var infowindow = void 0;
-
-  this.initMap = function () {
+  var currentL = void 0;
+  this.initMap = function (geo) {
     //location
-    var currentL = { lat: Number(mainService.lat), lng: Number(mainService.long) };
+    if (geo) {
+      currentL = geo;
+    } else {
+      currentL == { lat: Number(mainService.lat), lng: Number(mainService.long) };
+    }
 
     //creating the new map with the geocode of the currentL
     map = new google.maps.Map(document.getElementById('map'), {
@@ -214,12 +221,6 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
-});
-'use strict';
-
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
   $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 });
@@ -238,10 +239,23 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
     mapService.initMap();
   };
 
+  var geoData = void 0;
   $scope.geoCode = function (zipCity) {
+
     mainService.geoCode(zipCity).then(function (response) {
       console.log(response);
+      geoData = response;
+      return geoData;
+    }).then(function (geo) {
+      console.log(geo);
+      $scope.getResorts(geo);
     });
   };
+});
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
 });
 //# sourceMappingURL=bundle.js.map

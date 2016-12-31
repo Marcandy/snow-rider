@@ -45,6 +45,29 @@ angular.module('snowrider')
         return resorts;
       }
 
+      const geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+      const components = '&components=administrative_area_level_3|postal_code:'
 
+      this.getZipcodeData = function(zipCity) {
+          //console.log(zipcodeBaseUrl + zip + zipcodeComponents + zip + '&sensor=true' + zipcodeKey);
+          return $http({
+            url: geoUrl + zipCity ddress=1600+Amphitheatre+Parkway,+Mountain+View,+CA' + key,
+            method: 'GET'
+          }).then(function(results){
+              if(results.data.status === "ZERO_RESULTS") {
+                return false;
+              }
+              console.log(results);
+              const geoData = {}
+              geoData.zip = zip;
+              geoData.lat = results.data.results[0].geometry.location.lat;
+              geoData.lon = results.data.results[0].geometry.location.lng;
+              const address = results.data.results[0].formatted_address;
+              geoData.address = address.slice(0, address.indexOf(zip)).trim();
+              geoData.city = address.slice(0, address.indexOf(zip)).trim();//parse the data down to just the city and state
+              return geoData;
+          })
+       }
+       this.getZipcodeData();
 
   })

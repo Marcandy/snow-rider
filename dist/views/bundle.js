@@ -59,9 +59,12 @@ angular.module('snowrider').service('mainService', function ($http) {
 
   this.getResorts = function (geo) {
     // when to convert the user iputed city name or zipcode
+    if (!geo) {
+      geo = location;
+    }
     return $http({
       method: 'GET',
-      url: searchText + location + key
+      url: searchText + geo + key
     }).then(function (response) {
       console.log(response);
       resorts = response.data.results;
@@ -74,6 +77,36 @@ angular.module('snowrider').service('mainService', function ($http) {
   this.pass = function () {
     return resorts;
   };
+
+  var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  var components1 = '&components=administrative_area_level_3:';
+  var components2 = '|postal_code:';
+
+  this.geoCode = function (zipCity) {
+    //console.log(zipcodeBaseUrl + zip + zipcodeComponents + zip + '&sensor=true' + zipcodeKey);
+    return $http({
+      method: 'GET',
+      url: geoUrl + zipCity + key
+    }).then(function (results) {
+
+      // if(results.data.status === "ZERO_RESULTS") {
+      //   return false;
+      // }
+
+      console.log(results);
+      var geoData = {};
+
+      geoData.lat = results.data.results[0].geometry.location.lat;
+      geoData.lon = results.data.results[0].geometry.location.lng;
+      // geoData.zip = zipCity;
+      // const address = results.data.results[0].formatted_address;
+      // geoData.address = address.slice(0, address.indexOf(zip)).trim();
+      // geoData.city = address.slice(0, address.indexOf(zip)).trim();//parse the data down to just the city and state
+      return geoData;
+    });
+  };
+
+  // '"https://maps.googleapis.com/maps/api/geocode/json?address=Dallas&components=administrative_area:Dallas|postal_code:Dallas&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg"'
 });
 'use strict';
 
@@ -82,10 +115,14 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
   var map = void 0;
   var service = void 0;
   var infowindow = void 0;
-
-  this.initMap = function () {
+  var currentL = void 0;
+  this.initMap = function (geo) {
     //location
-    var currentL = { lat: Number(mainService.lat), lng: Number(mainService.long) };
+    if (geo) {
+      currentL = geo;
+    } else {
+      currentL == { lat: Number(mainService.lat), lng: Number(mainService.long) };
+    }
 
     //creating the new map with the geocode of the currentL
     map = new google.maps.Map(document.getElementById('map'), {
@@ -95,12 +132,14 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
 
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
-    service.textSearch({
-      location: currentL,
-      radius: 30000,
-      query: ['ski, snowboard resorts'],
-      rankBy: google.maps.places.RankBy.DISTANCE
-    }, callback);
+
+    // service.textSearch({
+    //   location: currentL,
+    //   radius: 30000,
+    //   query: ['ski, snowboard resorts'],
+    //   rankBy: google.maps.places.RankBy.DISTANCE
+    // }, callback);
+    callback('n', 'OK');
   };
 
   function callback(results, status) {
@@ -206,6 +245,21 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
 
   $scope.showMap = function () {
     mapService.initMap();
+  };
+
+  var geoData = void 0;
+  $scope.geoCode = function (zipCity) {
+
+    mainService.geoCode(zipCity).then(function (response) {
+      console.log(response);
+      geoData = response;
+      return geoData;
+    }).then(function (geo) {
+      console.log(geo);
+      $scope.getResorts(geo);
+    }).then(function () {
+      mapService.initMap(geoCode);
+    });
   };
 });
 //# sourceMappingURL=bundle.js.map

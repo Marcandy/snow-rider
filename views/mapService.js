@@ -4,10 +4,15 @@ angular.module('snowrider')
     let map;
     let service;
     let infowindow;
-
-    this.initMap = function() {
+    let  currentL;
+    this.initMap = function(geo) {
       //location
-        var currentL = {lat: Number(mainService.lat), lng: Number(mainService.long)};
+      if (geo) {
+        currentL = geo
+      } else {
+        currentL == {lat: Number(mainService.lat), lng: Number(mainService.long)};
+      }
+
 
         //creating the new map with the geocode of the currentL
         map = new google.maps.Map(document.getElementById('map'), {
@@ -17,12 +22,14 @@ angular.module('snowrider')
 
         infowindow = new google.maps.InfoWindow();
         service = new google.maps.places.PlacesService(map);
-        service.textSearch({
-          location: currentL,
-          radius: 30000,
-          query: ['ski, snowboard resorts'],
-          rankBy: google.maps.places.RankBy.DISTANCE
-        }, callback);
+
+        // service.textSearch({
+        //   location: currentL,
+        //   radius: 30000,
+        //   query: ['ski, snowboard resorts'],
+        //   rankBy: google.maps.places.RankBy.DISTANCE
+        // }, callback);
+        callback('n', 'OK');
       }
 
 

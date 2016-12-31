@@ -41,6 +41,8 @@ angular.module('snowrider').service('mainService', function ($http) {
   // google places Map api key
   var key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
 
+  var resorts;
+
   // with geoplugin api
   this.city = geoplugin_city();
   this.state = geoplugin_region();
@@ -51,21 +53,86 @@ angular.module('snowrider').service('mainService', function ($http) {
   var searchKeyword = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
   // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
 
-  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboarding';
+  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboard+resorts&rankBy=distance';
   var location = '&location=' + this.lat + ',' + this.long;
-  var radius = '&radius=30000';
+  var radius = '&radius=20000';
 
   this.getResorts = function (geo) {
     // when to convert the user iputed city name or zipcode
     return $http({
       method: 'GET',
-      url: searchText + location + radius + key
+      url: searchText + location + key
     }).then(function (response) {
       console.log(response);
+      resorts = response.data.results;
+      console.log(resorts);
       // response.addHeader("Access-Control-Allow-Origin", "*");
       return response.data.results;
     });
   };
+
+  this.pass = function () {
+    return resorts;
+  };
+});
+'use strict';
+
+angular.module('snowrider').service('mapService', function ($http, mainService) {
+
+  var map = void 0;
+  var service = void 0;
+  var infowindow = void 0;
+
+  this.initMap = function () {
+    //location
+    var currentL = { lat: Number(mainService.lat), lng: Number(mainService.long) };
+
+    //creating the new map with the geocode of the currentL
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: currentL,
+      zoom: 10
+    });
+
+    infowindow = new google.maps.InfoWindow();
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch({
+      location: currentL,
+      radius: 30000,
+      query: ['ski, snowboard resorts'],
+      rankBy: google.maps.places.RankBy.DISTANCE
+    }, callback);
+  };
+
+  function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      // console.log(results)
+      // for (var i = 0; i < results.length; i++) {
+      //   createMarker(results[i]); // creating a makrer for each of the result in the map
+      // }
+      var data = mainService.pass(); //
+      if (data) {
+        //made a condition to not initia map right away
+        for (var i = 0; i < data.length; i++) {
+          createMarker(data[i]); // creating a makrer for each of the result in the map
+        }
+      }
+    }
+  }
+
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+      infowindow.setContent(place.name + '<br>' + place.formatted_address);
+      // infowindow.setContent(place.formatted_address);
+
+      infowindow.open(map, this);
+    });
+  }
 });
 'use strict';
 
@@ -117,21 +184,28 @@ angular.module('snowrider').directive('gearDirective', function () {
 });
 'use strict';
 
-angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
-});
-'use strict';
-
 angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
 
   $scope.val = false;
 });
 'use strict';
 
-angular.module('snowrider').controller('searchCtrl', function ($scope, mainService) {
+angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
+  $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+});
+'use strict';
 
-  mainService.getResorts().then(function (results) {
-    $scope.resorts = results;
-  });
+angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
+
+  $scope.getResorts = function (zipOcity) {
+    // whne ng-clicked to initiate
+    mainService.getResorts().then(function (results) {
+      $scope.resorts = results;
+    });
+  };
+
+  $scope.showMap = function () {
+    mapService.initMap();
+  };
 });
 //# sourceMappingURL=bundle.js.map

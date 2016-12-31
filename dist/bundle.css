@@ -491,4 +491,18 @@ template {
   .guides h1 {
     margin: 0; }
 
+.search #map {
+  height: 500px;
+  width: 800px; }
+
+.search .search-main {
+  display: flex;
+  width: 70%; }
+  .search .search-main li {
+    display: flex; }
+
+.search .search-right {
+  display: flex;
+  width: 150px; }
+
 /*# sourceMappingURL=maps/bundle.css.map */

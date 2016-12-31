@@ -1,6 +1,17 @@
-<section>
+<section class="search">
 
 
-  {{resorts}}
-  
+<div id="map"></div>
+
+
+  <div class="search-main" >
+    <li ng-repeat='resort in resorts' >{{resort}}</li>
+  </div>
+
+  <div class="search-right">
+    <button type="button" ng-click='getResorts()'>Get Resorts</button>
+    <button type="button" ng-click='showMap()'>Show Map</button>
+  </div>
+
+
 </section>

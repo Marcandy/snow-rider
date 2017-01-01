@@ -6,7 +6,14 @@
 
 
   <div class="search-main" >
-    <li ng-repeat='resort in resorts' >{{resort}}</li>
+    <li ng-repeat='resort in resorts' ng-init='i=0;photos = photos[i++]'>
+
+      <p>{{resort.name}}</p>
+      <p>{{resort.formatted_address}}</p>
+      <p>{{resort.rating}}</p>
+      <img ng-src='{{photos}}'>
+    </li>
+
   </div>
 
   <div class="search-right">

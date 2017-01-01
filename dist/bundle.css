@@ -508,4 +508,12 @@ template {
 .menuD {
   float: right; }
 
+.userView {
+  height: 201px; }
+
+.tv {
+  width: 100%;
+  height: 200px;
+  background-size: cover; }
+
 /*# sourceMappingURL=maps/bundle.css.map */

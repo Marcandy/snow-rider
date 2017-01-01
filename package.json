@@ -29,6 +29,7 @@
     "gulp-print": "^2.0.1",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.1",
+    "materialize-css": "^0.97.8",
     "normalize-scss": "^6.0.0"
   },
   "devDependencies": {

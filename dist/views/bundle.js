@@ -383,15 +383,17 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
 
 
             return results;
-        }).then(function (res) {
-            for (var i = 0; i < res.length; i++) {
-                // loop  though the result and try to get the photo for each place hile keeping it on scope
-                mainService.getPhotos(res[i].photos[0].photo_reference).then(function (response) {
-                    $scope.photos.push(response);
-                    console.log($scope.photos);
-                });
-            }
         });
+        // .then(function(res) {
+        //   for (var i = 0; i < res.length; i++) { // loop  though the result and try to get the photo for each place hile keeping it on scope
+        //     mainService.getPhotos(res[i].photos[0].photo_reference).then(function (response) {
+        //       $scope.photos.push(response)
+        //       console.log($scope.photos);
+        //     })
+        //
+        //   }
+        // })
+
 
         //  return data;
     };

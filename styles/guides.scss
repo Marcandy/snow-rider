@@ -4,11 +4,29 @@
   // background-image: url('../img/guidesback.jpg');
 
   // @extend teal, .lighten-2;
-  background-color: teal;
+  // background-color: teal;
   color: white;
   font-family: 'Alegreya', serif;
-
+  text-align: center;
   h1 {
     margin: 0;
   }
+  p {
+
+
+    word-wrap: break-word;
+
+  }
+}
+
+.gm {
+  color: black;
+}
+
+.guide-box {
+  width: 100%;
+}
+
+.resorts {
+  text-align: center;
 }

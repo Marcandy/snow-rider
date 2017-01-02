@@ -1,5 +1,8 @@
 .menuD{
-  float: right;
+  // float: right;
+  // position: fixed;
+  right: 6px;
+  z-index: 3;
 }
 .userView {
   height: 201px;
@@ -9,6 +12,9 @@
   width: 100%;
   height: 200px;
   background-size: cover;
+}
+.small {
+  float: right;
 }
 
 // nav {

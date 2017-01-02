@@ -288,6 +288,16 @@ var gears = [{
 }];
 'use strict';
 
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+
+  $(document).ready(function () {
+    $('.parallax').parallax();
+  });
+});
+'use strict';
+
 angular.module('snowrider').directive('menuDirective', function () {
 
     return {
@@ -330,16 +340,6 @@ angular.module('snowrider').directive('menuDirective', function () {
         }
 
     };
-});
-'use strict';
-
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
-
-  $(document).ready(function () {
-    $('.parallax').parallax();
-  });
 });
 'use strict';
 

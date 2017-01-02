@@ -15,11 +15,15 @@
 <div class="carousel" >
   <div ng-repeat='gear in gears'>
 
-    <span>
-      <a class="carousel-item"><img ng-src="{{gear.img}}"></a>
-      <p>gear.desc</p>
-      <a ng-src="gear.url">Link</a>
-    </span>
+    <figure class="carousel-item">
+      <img ng-src="{{gear.img}}">
+      <figcaption>
+        {{gear.desc}}
+        <br>
+        <a href="{{gear.url}}"></a>
+      </figcaption>
+    </figure>
+
 
 
   </div>

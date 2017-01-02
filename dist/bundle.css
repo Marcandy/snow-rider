@@ -485,7 +485,7 @@ template {
   padding: 1rem; }
 
 .guides {
-  background-image: url("../img/guidesback.jpg");
+  background-color: teal;
   color: white;
   font-family: 'Alegreya', serif; }
   .guides h1 {

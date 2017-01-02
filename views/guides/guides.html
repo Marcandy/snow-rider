@@ -1,12 +1,19 @@
+<div >
+Go Forth
+<menu-directive class="menuD gm"></menu-directive>
+</div>
 
-<h2 ui-sref='gear'>Gears</h2>
-<section class="guides  teal ligthen-2">
+<div height='50' class="">
+
+</div>
+<section class="guides  teal ">
 <!-- Parent of 'featured', nested ui-view  -->
   <h1>Guides</h1>
-
-  <div class="">
-    <video src="../img/gifguide.mp4" autoplay loop ></video>
-    <h1>1</h1>
+<!-- class='slideInLeft'
+class='slideInRight' -->
+  <div class="guide-box">
+    <video class='animated slideInLeft' src="../img/gifguide.mp4" autoplay loop></video>
+    <h1 class=' animated slideInRight'>1</h1>
       <p>In short, you'll need clothing that keeps you warm and dry, a pair of snowboarding boots, and some safety gear.
       The full rundown of snowboarding equipment available is a long list, but these are the basics every snowboarder should have:
       A snowboard leash, to prevent runaway boards
@@ -86,4 +93,4 @@ Consider getting a stomp pad. This is a grip pad that goes on your snowboard, ju
 
 
 
-<div ng-show='val' ui-view='featured'></div>
+<div ng-show='val' ui-view='featured' onclick="Materialize.showStaggeredList('#staggered-test')"></div>

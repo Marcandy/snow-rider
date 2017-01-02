@@ -41,24 +41,27 @@
 
   <div class="row">
 
-<div class="card" class="col s3" ng-repeat='resort in resorts'>
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../../img/jumbimg.png">
+<div class="col s3 card"  ng-repeat='resort in resorts'>
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="../../img/jumbimg.png">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{{resort.name}}<i class="material-icons right">more_vert</i></span>
+      <p><a href="#">{{resort.rating}}</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">{{resort.name}}<i class="material-icons right">close</i></span>
+      <p>{{resort.formatted_address}}</p>
+    </div>
   </div>
-  <div class="card-content">
-    <span class="card-title activator grey-text text-darken-4">{{resort.name}}<i class="material-icons right">more_vert</i></span>
-    <p><a href="#">{{resort.rating}}</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title grey-text text-darken-4">{{resort.name}}<i class="material-icons right">close</i></span>
-    <p>{{resort.formatted_address}}</p>
-  </div>
+
 </div>
-        <div  >
+        <!-- <div  >
           <p>{{resort.name}}</p>
           <p>{{resort.formatted_address}}</p>Test
           <p>{{resort.rating}}</p>
-        </div>
+        </div> -->
 
         <!-- <div class="col s3">
           Promo Content 2 goes here

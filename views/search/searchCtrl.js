@@ -9,7 +9,7 @@ angular.module('snowrider')
             mainService.getResorts().then(function(results) {
                     $scope.resorts = results; // so i can scope it
 
-
+                    console.log(results);
 
                     return results
 

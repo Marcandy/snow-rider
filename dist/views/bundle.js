@@ -36,95 +36,112 @@ angular.module('snowrider', ['ui.router']).config(function ($stateProvider, $url
 });
 'use strict';
 
-angular.module('snowrider').service('mainService', function ($http) {
+angular.module('snowrider').service('mainService', function ($http, $q) {
 
-    // google places Map api key
-    var key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
+  // google places Map api key
+  var key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
 
-    var resorts;
+  var resorts;
 
-    // with geoplugin api
-    this.city = geoplugin_city();
-    this.state = geoplugin_region();
-    this.lat = geoplugin_latitude();
-    this.long = geoplugin_longitude();
+  // with geoplugin api
+  this.city = geoplugin_city();
+  this.state = geoplugin_region();
+  this.lat = geoplugin_latitude();
+  this.long = geoplugin_longitude();
 
-    // search request
-    var searchKeyword = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
-    // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
+  // search request
+  var searchKeyword = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
+  // -33.8670522,151.1957362&type=restaurant&keyword=&key=YOUR_API_KEY
 
-    var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboard+resorts&rankBy=distance';
-    var location = '&location=' + this.lat + ',' + this.long;
-    var radius = '&radius=20000';
+  var searchText = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=ski+snowboard+resorts&rankBy=distance';
+  var location = '&location=' + this.lat + ',' + this.long;
+  var radius = '&radius=20000';
 
-    this.getResorts = function (geo) {
-        // when to convert the user iputed city name or zipcode
-        if (geo) {
-            location = '&location=' + geo.lat + ',' + geo.lng; //had to reset the location parameter correctly
-            console.log(location);
-        }
+  this.getphoto = function (i) {
+    return $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
+      // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+    }).then(function (response) {
+      console.log(response);
+      return response;
+    });
+  };
+
+  this.getResorts = function (geo) {
+    // when to convert the user iputed city name or zipcode
+    var deferred = $q.defer();
+
+    if (geo) {
+      location = '&location=' + geo.lat + ',' + geo.lng; //had to reset the location parameter correctly
+      console.log(location);
+    }
+    $http({
+
+      method: 'GET',
+      url: searchText + location + key
+    }).then(function (response) {
+      console.log(response);
+
+      resorts = response.data.results;
+
+      return resorts;
+    }).then(function (response) {
+
+      for (var i = 0; i < resorts.length; i++) {
+        // var ref = response[i].photos[0].photo_reference
+        console.log(resorts);
+
         return $http({
-
-            method: 'GET',
-            url: searchText + location + key
+          method: 'GET',
+          url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
+          // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
         }).then(function (response) {
-            console.log(response);
-            resorts = response.data.results;
-            console.log(resorts);
-            // for (var i = 0; i < resorts.length; i++) {
-            //   this.getPhotos(resorts[i].photos[0].photo_reference)
-            //
-            // }
-            // response.addHeader("Access-Control-Allow-Origin", "*");
-            return response.data.results;
+          resorts[i].photos = response;
         });
-    };
+      }
+      deferred.resolve(resorts);
+    });
 
-    this.getPhotos = function (reference) {
-        return $http({
-            method: 'GET',
-            url:
-            //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
-            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
-        }).then(function (response) {
-            console.log(response);
-            return response.data;
-        });
-    };
+    return deferred.promise;
+  };
 
-    this.pass = function () {
-        return resorts;
-    };
+  // this.getPhotos();
 
-    var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-    var components1 = '&components=administrative_area_level_3:';
-    var components2 = '|postal_code:';
 
-    this.geoCode = function (zipCity) {
-        //console.log(zipcodeBaseUrl + zip + zipcodeComponents + zip + '&sensor=true' + zipcodeKey);
-        return $http({
-            method: 'GET',
-            url: geoUrl + zipCity + key
-        }).then(function (results) {
+  this.pass = function () {
+    return resorts;
+  };
 
-            // if(results.data.status === "ZERO_RESULTS") {
-            //   return false;
-            // }
+  var geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  var components1 = '&components=administrative_area_level_3:';
+  var components2 = '|postal_code:';
 
-            console.log(results);
-            var geoData = {};
+  this.geoCode = function (zipCity) {
+    //console.log(zipcodeBaseUrl + zip + zipcodeComponents + zip + '&sensor=true' + zipcodeKey);
+    return $http({
+      method: 'GET',
+      url: geoUrl + zipCity + key
+    }).then(function (results) {
 
-            geoData.lat = results.data.results[0].geometry.location.lat;
-            geoData.lng = results.data.results[0].geometry.location.lng;
-            // geoData.zip = zipCity;
-            // const address = results.data.results[0].formatted_address;
-            // geoData.address = address.slice(0, address.indexOf(zip)).trim();
-            // geoData.city = address.slice(0, address.indexOf(zip)).trim();//parse the data down to just the city and state
-            return geoData;
-        });
-    };
+      // if(results.data.status === "ZERO_RESULTS") {
+      //   return false;
+      // }
 
-    // '"https://maps.googleapis.com/maps/api/geocode/json?address=Dallas&components=administrative_area:Dallas|postal_code:Dallas&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg"'
+      console.log(results);
+      var geoData = {};
+
+      geoData.lat = results.data.results[0].geometry.location.lat;
+      geoData.lng = results.data.results[0].geometry.location.lng;
+      // geoData.zip = zipCity;
+      // const address = results.data.results[0].formatted_address;
+      // geoData.address = address.slice(0, address.indexOf(zip)).trim();
+      // geoData.city = address.slice(0, address.indexOf(zip)).trim();//parse the data down to just the city and state
+      return geoData;
+    });
+  };
+
+  // '"https://maps.googleapis.com/maps/api/geocode/json?address=Dallas&components=administrative_area:Dallas|postal_code:Dallas&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg"'
 });
 'use strict';
 
@@ -298,33 +315,6 @@ angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
 });
 'use strict';
 
-angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
-    $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
-}).directive('jumboDirective', function () {
-
-    return {
-        restrict: 'EA',
-
-        templateUrl: './views/jumbo/jumbo.html',
-
-        // scope: {
-        //     // lesson: '=',
-        //     // datAlert: '&'
-        // },
-
-        // controller: function($scope) {
-        //
-        // },
-
-        link: function link(scope, elem, attrs) {//elem attribute was different, so it was not applying
-
-
-        }
-
-    };
-});
-'use strict';
-
 angular.module('snowrider').directive('menuDirective', function () {
 
     return {
@@ -370,6 +360,33 @@ angular.module('snowrider').directive('menuDirective', function () {
 });
 'use strict';
 
+angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
+    $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
+}).directive('jumboDirective', function () {
+
+    return {
+        restrict: 'EA',
+
+        templateUrl: './views/jumbo/jumbo.html',
+
+        // scope: {
+        //     // lesson: '=',
+        //     // datAlert: '&'
+        // },
+
+        // controller: function($scope) {
+        //
+        // },
+
+        link: function link(scope, elem, attrs) {//elem attribute was different, so it was not applying
+
+
+        }
+
+    };
+});
+'use strict';
+
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
 
     var geoData = void 0;
@@ -381,6 +398,7 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
         mainService.getResorts().then(function (results) {
             $scope.resorts = results; // so i can scope it
 
+            console.log(results);
 
             return results;
         });

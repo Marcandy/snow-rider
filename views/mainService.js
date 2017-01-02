@@ -1,5 +1,5 @@
 angular.module('snowrider')
-    .service('mainService', function($http) {
+    .service('mainService', function($http, $q) {
 
         // google places Map api key
         const key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
@@ -20,12 +20,30 @@ angular.module('snowrider')
         var location = '&location=' + this.lat + ',' + this.long;
         let radius = '&radius=20000';
 
+        this.getphoto = function (i) {
+          return $http({
+            method: 'GET',
+            url:
+             'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
+            // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+          })
+          .then(function (response) {
+            console.log(response);
+            return response;
+
+
+          })
+        }
+
+
         this.getResorts = function(geo) { // when to convert the user iputed city name or zipcode
+          var deferred = $q.defer()
+
             if (geo) {
                 location = '&location=' + geo.lat + ',' + geo.lng; //had to reset the location parameter correctly
                 console.log(location);
             }
-            return $http({
+             $http({
 
 
                 method: 'GET',
@@ -33,35 +51,49 @@ angular.module('snowrider')
                 //  'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise' + key
 
 
-                // headers: {
+                // headers: {reference
+
                 //   'Access-Control-Allow-Origin: * ',
                 //   'Access-Control-Allow-Headers: AUTHORIZATION',
                 //   'Access-Control-Allow-Methods: GET'
                 // }
             }).then(function(response) {
                 console.log(response);
+
+
+
                 resorts = response.data.results;
-                console.log(resorts);
-                // for (var i = 0; i < resorts.length; i++) {
-                //   this.getPhotos(resorts[i].photos[0].photo_reference)
-                //
-                // }
-                // response.addHeader("Access-Control-Allow-Origin", "*");
-                return response.data.results;
+
+
+                return resorts
+
+            }).then(function (response) {
+
+              for (var i = 0; i < resorts.length; i++) {
+                // var ref = response[i].photos[0].photo_reference
+                console.log(resorts)
+
+                return $http({
+                  method: 'GET',
+                  url:
+                   'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
+                  // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+                }).then(function (response) {
+                  resorts[i].photos = response;
+                })
+
+
+              }
+              deferred.resolve(resorts)
             })
+
+
+          return deferred.promise
         }
 
-        this.getPhotos = function (reference) {
-          return $http({
-            method: 'GET',
-            url:
-            //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
-            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
-          }).then(function (response) {
-            console.log(response);
-            return response.data;
-          })
-        }
+
+
+        // this.getPhotos();
 
 
         this.pass = function() {

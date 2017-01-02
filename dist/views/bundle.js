@@ -307,9 +307,10 @@ angular.module('snowrider').directive('menuDirective', function () {
             // $(".button-collapse").sideNav();
             // Initialize collapsible (uncomment the line below if you use the dropdown variation)
             //$('.collapsible').collapsible();
-            elem.on('click', function () {
-                $('.button-collapse').sideNav('show');
-            });
+            // elem.on('click', function () {
+            //   $('.button-collapse').sideNav('show');
+            // })
+
             $('.button-collapse').sideNav({
                 menuWidth: 300, // Default is 240
                 edge: 'right', // Choose the horizontal origin

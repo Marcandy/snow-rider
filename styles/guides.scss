@@ -1,7 +1,10 @@
 .guides {
   // width: 100%;
   // height: 100%;
-  background-image: url('../img/guidesback.jpg');
+  // background-image: url('../img/guidesback.jpg');
+
+  // @extend teal, .lighten-2;
+  background-color: teal;
   color: white;
   font-family: 'Alegreya', serif;
 

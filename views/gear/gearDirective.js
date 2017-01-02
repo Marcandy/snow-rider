@@ -12,6 +12,11 @@ angular.module('snowrider')
             },
 
             controller: function($scope) {
+              $scope.gears = gears;
+
+              $(document).ready(function(){
+                $('.carousel').carousel();
+              });
 
             },
 
@@ -53,41 +58,40 @@ angular.module('snowrider')
 
 var gears = [
   {
-    img:'/img/Moment.jpg',
-    desc: 'Our most powerful board built for wide-open freeriding, the full-camber Moment Generator thrives on mandatory cliffs, exposed traverses, and butt-clenchingly steep chutes. A Reinforced Dynamic Flex core gets additional ash and thicker purple heart wood toward the board’s nose and tail for instantaneous power transfer to the contact points. While the significant 5cm setback and mid-to-wide waist widths provide ample landing gear for big drops into deep snow. Beefed-up, vibration-dampening purple heart sidewalls and a large-radius sidecut prevent the Moment Generator from feeling twitchy at speed, keeping you firmly in command through the most high-consequence terrain',
+    img: '../../img/gear/Moment.jpg',
+    desc: 'Our most powerful board built for wide-open freeriding, the full-camber Moment Generator thrives on mandatory cliffs, exposed traverses, and butt-clenchingly steep chutes.',
     url: 'http://deviationusa.com/product/moment-generator/',
 
   },
   {
-    img:'../img/gear/Moment.jpg',
+    img:'../../img/gear/alpineglow.png',
     desc: 'Top Sheet Designs',
     url: 'http://deviationusa.com/product/moment-generator/'
   },
 
   {
-    img:'../img/gear/wood.jpg',
+    img:'../../img/gear/wood.png',
     desc: 'Wood Veneer - Marbled Ako',
     url: 'https://www.wagnerskis.com/gallery/'
   },
 
   {
-    img:'',
-    desc: '',
-    url: '',
+    img:'../../img/gear/skatingX.png',
+    desc: 'Cross country set: ski, boots and poles',
+    url: 'http://pistetopowder.com/rental/',
 
-  }
-
-  {
-    img:'',
-    desc: '',
-    url: '',
-
-  }
+  },
 
   {
-    img:'',
-    desc: '',
-    url: '',
+    img:'../../img/gear/ABSp.jpg',
+    desc: 'ABS P.Ride (Mit Schaufel und Sonde)',
+    url: 'http://pistetopowder.com/rental/'
 
+  },
+
+  {
+    img:'../../img/gear/headset.jpg',
+    desc: 'Perfect fitting ski helmet of Cébé in lime and blue',
+    url: 'https://www.vaola.co.uk/p/cebe-fireball-ski-helmet-lime-blue-2378026.html'
   }
 ]

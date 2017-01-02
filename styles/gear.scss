@@ -3,3 +3,25 @@
   margin: 1rem auto;
   padding: 1rem;
 }
+
+// .data-caption {
+//   color: black;
+// }
+
+
+
+.carousel {
+  background-color: teal;
+  width: 100%;
+  height: 500px !important;
+
+  .carousel-item {
+    width: 400px !important;
+    height: 400px !important;
+    img {
+      height: 325px;
+      width: 385px;
+    }
+
+  }
+}

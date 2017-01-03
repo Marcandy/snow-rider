@@ -57,17 +57,21 @@ angular.module('snowrider').service('mainService', function ($http, $q) {
   var location = '&location=' + this.lat + ',' + this.long;
   var radius = '&radius=20000';
 
-  this.getPhoto = function (i) {
+  this.getPhoto = function (reference) {
     return $http({
       method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
+      url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key,
+      //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
       responseType: 'arraybuffer'
-      // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
-    }).then(function (response) {
+      //
+    }).then(function (res) {
 
-      var convertImg = _arrayBufferToBase64(response.data);
-      console.log(convertImg);
-      return convertImg;
+      var blob = new Blob([res.data], { type: imageType });
+      return (window.URL || window.webkitURL).createObjectURL(blob);
+      // var convertImg = _arrayBufferToBase64(response.data);
+      // console.log(convertImg);
+      // return convertImg;
+
     });
   };
 
@@ -112,9 +116,13 @@ angular.module('snowrider').service('mainService', function ($http, $q) {
       //
       //
       // }
+
       for (var i = 0; i < resorts.length; i++) {
-        mainService.getPhoto().then(function (i, response) {
+        var ref = response.data.results[i].photos["0"].photo_reference;
+
+        mainService.getPhoto(ref).then(function (i, response) {
           resorts[i].photos = response.data;
+
           console.log(resorts);
         }.bind(null, i));
       }
@@ -368,51 +376,6 @@ angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
 });
 'use strict';
 
-angular.module('snowrider').directive('menuDirective', function () {
-
-    return {
-        restrict: 'EA',
-
-        templateUrl: './views/menu/menu.html',
-
-        scope: {
-            // lesson: '=',
-            // datAlert: '&'
-        },
-
-        controller: function controller($scope) {},
-
-        link: function link(scope, elem, attrs) {
-            //elem attribute was different, so it was not applying
-
-            // Initialize collapse button
-            // $(".button-collapse").sideNav();
-            // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-            //$('.collapsible').collapsible();
-            // elem.on('click', function () {
-            //   $('.button-collapse').sideNav('show');
-            // })
-
-            $('.button-collapse').sideNav({
-                menuWidth: 300, // Default is 240
-                edge: 'right', // Choose the horizontal origin
-                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-                draggable: true // Choose whether you can drag to open on touch screens
-            });
-
-            // Show sideNav
-            // $('.button-collapse').sideNav('show');
-            // // Hide sideNav
-            // $('.button-collapse').sideNav('hide');
-            // // Destroy sideNav
-            // $('.button-collapse').sideNav('destroy')
-
-        }
-
-    };
-});
-'use strict';
-
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
 
     var geoData = void 0;
@@ -470,6 +433,51 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
             console.log(geoData);
             mapService.initMap(geoData, results);
         });
+    };
+});
+'use strict';
+
+angular.module('snowrider').directive('menuDirective', function () {
+
+    return {
+        restrict: 'EA',
+
+        templateUrl: './views/menu/menu.html',
+
+        scope: {
+            // lesson: '=',
+            // datAlert: '&'
+        },
+
+        controller: function controller($scope) {},
+
+        link: function link(scope, elem, attrs) {
+            //elem attribute was different, so it was not applying
+
+            // Initialize collapse button
+            // $(".button-collapse").sideNav();
+            // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+            //$('.collapsible').collapsible();
+            // elem.on('click', function () {
+            //   $('.button-collapse').sideNav('show');
+            // })
+
+            $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 240
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens
+            });
+
+            // Show sideNav
+            // $('.button-collapse').sideNav('show');
+            // // Hide sideNav
+            // $('.button-collapse').sideNav('hide');
+            // // Destroy sideNav
+            // $('.button-collapse').sideNav('destroy')
+
+        }
+
     };
 });
 //# sourceMappingURL=bundle.js.map

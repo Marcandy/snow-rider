@@ -20,19 +20,21 @@ angular.module('snowrider')
         var location = '&location=' + this.lat + ',' + this.long;
         let radius = '&radius=20000';
 
-        this.getPhoto = function (i) {
+        this.getPhoto = function (reference) {
           return $http({
             method: 'GET',
-            url:
-             'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
+            url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key,
+            //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
              responseType: 'arraybuffer'
-            // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+            //
           })
-          .then(function (response) {
+          .then(function (res) {
 
-            var convertImg = _arrayBufferToBase64(response.data);
-            console.log(convertImg);
-            return convertImg;
+            let blob = new Blob([res.data], {type: imageType});
+            return (window.URL || window.webkitURL).createObjectURL(blob);
+            // var convertImg = _arrayBufferToBase64(response.data);
+            // console.log(convertImg);
+            // return convertImg;
 
 
           })
@@ -90,9 +92,13 @@ angular.module('snowrider')
                   //
                   //
                   // }
+
                   for (var i = 0; i < resorts.length; i++) {
-                    mainService.getPhoto().then(function (i, response) {
+                    var ref = response.data.results[i].photos["0"].photo_reference;
+
+                    mainService.getPhoto(ref).then(function (i, response) {
                       resorts[i].photos = response.data;
+
                       console.log(resorts);
                     }.bind(null, i));
                   }

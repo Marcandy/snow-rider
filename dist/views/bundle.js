@@ -113,7 +113,7 @@ angular.module('snowrider').service('mainService', function ($http, $q) {
             //
             // }
             var ref;
-            var phourl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+            var phourl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&photoreference=';
             for (var i = 0; i < resorts.length; i++) {
                 if (resorts[i].photos) {
                     ref = resorts[i].photos[0].photo_reference;
@@ -272,8 +272,7 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
             map: map,
-            position: place.geometry.location,
-            icon: place.icon
+            position: place.geometry.location
             // photo: place.photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
         });
 
@@ -407,51 +406,6 @@ angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
 });
 'use strict';
 
-angular.module('snowrider').directive('menuDirective', function () {
-
-    return {
-        restrict: 'EA',
-
-        templateUrl: './views/menu/menu.html',
-
-        scope: {
-            // lesson: '=',
-            // datAlert: '&'
-        },
-
-        controller: function controller($scope) {},
-
-        link: function link(scope, elem, attrs) {
-            //elem attribute was different, so it was not applying
-
-            // Initialize collapse button
-            // $(".button-collapse").sideNav();
-            // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-            //$('.collapsible').collapsible();
-            // elem.on('click', function () {
-            //   $('.button-collapse').sideNav('show');
-            // })
-
-            $('.button-collapse').sideNav({
-                menuWidth: 300, // Default is 240
-                edge: 'right', // Choose the horizontal origin
-                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-                draggable: true // Choose whether you can drag to open on touch screens
-            });
-
-            // Show sideNav
-            // $('.button-collapse').sideNav('show');
-            // // Hide sideNav
-            // $('.button-collapse').sideNav('hide');
-            // // Destroy sideNav
-            // $('.button-collapse').sideNav('destroy')
-
-        }
-
-    };
-});
-'use strict';
-
 angular.module('snowrider').controller('searchCtrl', function ($scope, mainService, mapService) {
 
     var geoData = void 0;
@@ -525,6 +479,51 @@ angular.module('snowrider').controller('searchCtrl', function ($scope, mainServi
             console.log(geoData);
             mapService.initMap(geoData, results);
         });
+    };
+});
+'use strict';
+
+angular.module('snowrider').directive('menuDirective', function () {
+
+    return {
+        restrict: 'EA',
+
+        templateUrl: './views/menu/menu.html',
+
+        scope: {
+            // lesson: '=',
+            // datAlert: '&'
+        },
+
+        controller: function controller($scope) {},
+
+        link: function link(scope, elem, attrs) {
+            //elem attribute was different, so it was not applying
+
+            // Initialize collapse button
+            // $(".button-collapse").sideNav();
+            // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+            //$('.collapsible').collapsible();
+            // elem.on('click', function () {
+            //   $('.button-collapse').sideNav('show');
+            // })
+
+            $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 240
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens
+            });
+
+            // Show sideNav
+            // $('.button-collapse').sideNav('show');
+            // // Hide sideNav
+            // $('.button-collapse').sideNav('hide');
+            // // Destroy sideNav
+            // $('.button-collapse').sideNav('destroy')
+
+        }
+
     };
 });
 //# sourceMappingURL=bundle.js.map

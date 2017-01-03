@@ -524,6 +524,14 @@ template {
 .search .search-right {
   width: 150px; }
 
+.card-image {
+  min-height: 215px;
+  max-height: 215px; }
+
+.card-title {
+  line-height: 20px !important;
+  font-size: 19px !important; }
+
 .menuD {
   right: 6px;
   z-index: 3; }

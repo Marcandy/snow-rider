@@ -50,7 +50,7 @@ angular.module('snowrider')
 
 
                 // headers: {reference
-
+                //
                 //   'Access-Control-Allow-Origin: * ',
                 //   'Access-Control-Allow-Headers: AUTHORIZATION',
                 //   'Access-Control-Allow-Methods: GET'

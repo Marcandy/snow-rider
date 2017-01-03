@@ -10,10 +10,11 @@
   text-align: center;
   h1 {
     margin: 0;
+    color: white
   }
   p {
-
-
+    width: 75%;
+    margin: auto;
     word-wrap: break-word;
 
   }
@@ -29,4 +30,17 @@
 
 .resorts {
   text-align: center;
+}
+
+.parallax-container  {
+  margin: 20px;
+  h1 {
+    color: white;
+  }
+  p {
+    color: white;
+    width: 75%;
+    margin: auto;
+    font-size: 19px;
+  }
 }

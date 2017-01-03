@@ -48,12 +48,13 @@
       <img class="activator" ng-src='{{resort.photo}}' >
     </div>
     <div class="card-content">
-      <span class="card-title activator grey-text text-darken-3">{{resort.name}}<i class="material-icons right">more_vert</i></span>
-      <p><a href="#">{{resort.rating}}</a></p>
+      <span class="card-title activator grey-text text-darken-4">{{resort.name}}<i class="material-icons right">more_vert</i></span>
+      <p><a href="#"><i class="material-icons left">star</i> {{resort.rating}}</a></p>
     </div>
     <div class="card-reveal">
       <span class="card-title grey-text text-darken-4">{{resort.name}}<i class="material-icons right">close</i></span>
       <p>{{resort.formatted_address}}</p>
+      <img ng-src="{{resort.icon}}" alt="">
     </div>
   </div>
 

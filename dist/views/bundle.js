@@ -117,11 +117,12 @@ angular.module('snowrider').service('mainService', function ($http, $q) {
             for (var i = 0; i < resorts.length; i++) {
                 if (resorts[i].photos) {
                     ref = resorts[i].photos[0].photo_reference;
+
+                    resorts[i].photo = phourl + ref + key;
                 } else {
-                    ref = resorts[i].reference;
+                    resorts[i].photo = 'img/jumbimg.png';
                 }
 
-                resorts[i].photo = phourl + ref + key;
                 // mainService.getPhoto( response.data.results[i].photos[0].photo_reference).then(function (i, photo) {
                 //   // let blob = new Blob([response.data], {type: imageType});
                 //   // return (window.URL || window.webkitURL).createObjectURL(blob);
@@ -369,6 +370,16 @@ var gears = [{
 }];
 'use strict';
 
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+
+  $(document).ready(function () {
+    $('.parallax').parallax();
+  });
+});
+'use strict';
+
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
     $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 }).directive('jumboDirective', function () {
@@ -438,16 +449,6 @@ angular.module('snowrider').directive('menuDirective', function () {
         }
 
     };
-});
-'use strict';
-
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
-
-  $(document).ready(function () {
-    $('.parallax').parallax();
-  });
 });
 'use strict';
 

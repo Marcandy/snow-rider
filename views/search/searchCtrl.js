@@ -47,7 +47,25 @@ angular.module('snowrider')
                     console.log(geo);
                     // var data = $scope.getResorts(geo);
                     // console.log($scope.getResorts(geo));
+this.getPhoto = function (reference) {
+          return $http({
+            method: 'GET',
+            url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+            //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
+            //  responseType: 'arraybuffer'
+            //
+          })
+          .then(function (res) {
 
+            return res.data;
+
+            // var convertImg = _arrayBufferToBase64(response.data);
+            // console.log(convertImg);
+            // return convertImg;
+
+
+          })
+        }
                     // return  $scope.getResorts(geo)
                     return mainService.getResorts(geo).then(function(results) {
                         $scope.resorts = results; // so i can scope it

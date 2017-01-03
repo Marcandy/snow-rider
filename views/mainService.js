@@ -2,7 +2,8 @@ angular.module('snowrider')
     .service('mainService', function($http, $q) {
 
         // google places Map api key
-        const key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
+        const key2 = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
+        const key = '&key=AIzaSyAt3K14Jk4M2Kkw0onwCbQy5O8lBX5HJiE';
 
         var resorts;
         var mainService = this;
@@ -20,25 +21,7 @@ angular.module('snowrider')
         var location = '&location=' + this.lat + ',' + this.long;
         let radius = '&radius=20000';
 
-        this.getPhoto = function (reference) {
-          return $http({
-            method: 'GET',
-            url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
-            //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
-            //  responseType: 'arraybuffer'
-            //
-          })
-          .then(function (res) {
 
-            return res.data;
-
-            // var convertImg = _arrayBufferToBase64(response.data);
-            // console.log(convertImg);
-            // return convertImg;
-
-
-          })
-        }
 
         // function _arrayBufferToBase64(buffer) {
         //   var binary = '';
@@ -62,7 +45,7 @@ angular.module('snowrider')
 
 
                 method: 'GET',
-                url: searchText + location + key,
+                url: searchText + location + key
                 //  'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise' + key
 
 
@@ -77,8 +60,9 @@ angular.module('snowrider')
                 resorts = response.data.results;
                   /// omg you can actually get the reference by google map api photo url thne
                   /// putting your refernce after and api
+                  console.log(resorts);
 
-                  
+
 
 
                   // for (var i = 0; i < resorts.length; i++) {
@@ -96,10 +80,18 @@ angular.module('snowrider')
                   //
                   //
                   // }
-
+                  var ref;
+                  var phourl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
                   for (var i = 0; i < resorts.length; i++) {
+                    if (resorts[i].photos) {
+                       ref = resorts[i].photos[0].photo_reference;
+                    }else {
+                      ref = resorts[i].reference;
+                    }
 
 
+
+                    resorts[i].photo = phourl + ref + key;
                     // mainService.getPhoto( response.data.results[i].photos[0].photo_reference).then(function (i, photo) {
                     //   // let blob = new Blob([response.data], {type: imageType});
                     //   // return (window.URL || window.webkitURL).createObjectURL(blob);
@@ -110,14 +102,12 @@ angular.module('snowrider')
                     // }.bind(null, i));
                     // var service = new google.maps.places.PlacesService(map);
 
-                    service.getDetails({
-                      placeId: resorst[i].placeId
-                    }, function(place, status) {
-                      console.log('hey');
-                      resorts[i] = place;
-
-
-                })
+                    // service.getDetails({
+                    //   placeId: resorst[i].placeId
+                    // }, function(place, status) {
+                    //   console.log('hey');
+                    //   resorts[i] = place;
+                    // })
               }
 
 
@@ -134,6 +124,25 @@ angular.module('snowrider')
           return deferred.promise
         }
 
+        this.getPhoto = function (reference) {
+          return $http({
+            method: 'GET',
+            url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+            //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
+            //  responseType: 'arraybuffer'
+            //
+          })
+          .then(function (res) {
+
+            return res.data;
+
+            // var convertImg = _arrayBufferToBase64(response.data);
+            // console.log(convertImg);
+            // return convertImg;
+
+
+          })
+        }
 
 
         // this.getPhotos();

@@ -66,6 +66,7 @@ angular.module('snowrider')
             var marker = new google.maps.Marker({
                 map: map,
                 position: place.geometry.location,
+                icon: place.icon
                 // photo: place.photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
             });
 

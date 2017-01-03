@@ -5,7 +5,7 @@ angular.module('snowrider')
         const key = '&key=AIzaSyCY0pUHVH0TCKwnYDFZpl2xkqGkexLRjVg';
 
         var resorts;
-
+        var mainService = this;
         // with geoplugin api
         this.city = geoplugin_city();
         this.state = geoplugin_region();
@@ -20,19 +20,32 @@ angular.module('snowrider')
         var location = '&location=' + this.lat + ',' + this.long;
         let radius = '&radius=20000';
 
-        this.getphoto = function (i) {
+        this.getPhoto = function (i) {
           return $http({
             method: 'GET',
             url:
-             'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
+             'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
+             responseType: 'arraybuffer'
             // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
           })
           .then(function (response) {
-            console.log(response);
-            return response;
+
+            var convertImg = _arrayBufferToBase64(response.data);
+            console.log(convertImg);
+            return convertImg;
 
 
           })
+        }
+
+        function _arrayBufferToBase64(buffer) {
+          var binary = '';
+          var bytes = new Uint8Array(buffer);
+          var len = bytes.byteLength;
+          for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          return window.btoa(binary);
         }
 
 
@@ -57,35 +70,43 @@ angular.module('snowrider')
                 //   'Access-Control-Allow-Headers: AUTHORIZATION',
                 //   'Access-Control-Allow-Methods: GET'
                 // }
-            }).then(function(response) {
+            }).then(function(response ) {
                 console.log(response);
-
-
-
                 resorts = response.data.results;
 
 
-                return resorts
+                  // for (var i = 0; i < resorts.length; i++) {
+                  //   // var ref = response[i].photos[0].photo_reference
+                  //   console.log(resorts)
+                  //
+                  //   $http({
+                  //     method: 'GET',
+                  //     url:
+                  //      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
+                  //     // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
+                  //   }).then(function (i, response) {
+                  //     resorts[i].photos = response;
+                  //   }.bind(null, i))
+                  //
+                  //
+                  // }
+                  for (var i = 0; i < resorts.length; i++) {
+                    mainService.getPhoto().then(function (i, response) {
+                      resorts[i].photos = response.data;
+                      console.log(resorts);
+                    }.bind(null, i));
+                  }
 
-            }).then(function (response) {
-
-              for (var i = 0; i < resorts.length; i++) {
-                // var ref = response[i].photos[0].photo_reference
-                console.log(resorts)
-
-                return $http({
-                  method: 'GET',
-                  url:
-                   'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key
-                  // 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
-                }).then(function (response) {
-                  resorts[i].photos = response;
-                })
 
 
-              }
-              deferred.resolve(resorts)
+
+                deferred.resolve(resorts);
+
             })
+            // .then(function (response) {
+            //
+            //
+            // })
 
 
           return deferred.promise

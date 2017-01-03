@@ -65,12 +65,12 @@ angular.module('snowrider')
             var placeLoc = place.geometry.location;
             var marker = new google.maps.Marker({
                 map: map,
-                position: place.geometry.location,
+                position: place.geometry.location
                 // photo: place.photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
             });
 
             google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(  place.name + '<br>' + place.formatted_address);
+                infowindow.setContent(place.icon + '<br>' + place.name + '<br>' + place.formatted_address);
                 // infowindow.setContent(place.formatted_address);
 
                 infowindow.open(map, this);

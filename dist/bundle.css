@@ -544,7 +544,8 @@ template {
   height: 200px;
   background-size: cover; }
 
-.small {
-  float: right; }
+i.medium {
+  float: right;
+  font-size: 3rem !important; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

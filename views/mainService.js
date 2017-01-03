@@ -50,7 +50,7 @@ angular.module('snowrider')
 
 
                 // headers: {reference
-
+                //
                 //   'Access-Control-Allow-Origin: * ',
                 //   'Access-Control-Allow-Headers: AUTHORIZATION',
                 //   'Access-Control-Allow-Methods: GET'
@@ -81,7 +81,7 @@ angular.module('snowrider')
                   //
                   // }
                   var ref;
-                  var phourl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+                  var phourl = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&photoreference=';
                   for (var i = 0; i < resorts.length; i++) {
                     if (resorts[i].photos) {
                        ref = resorts[i].photos[0].photo_reference;

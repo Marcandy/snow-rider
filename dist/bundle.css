@@ -500,8 +500,11 @@ template {
   font-family: 'Alegreya', serif;
   text-align: center; }
   .guides h1 {
-    margin: 0; }
+    margin: 0;
+    color: white; }
   .guides p {
+    width: 75%;
+    margin: auto;
     word-wrap: break-word; }
 
 .gm {
@@ -513,6 +516,16 @@ template {
 .resorts {
   text-align: center; }
 
+.parallax-container {
+  margin: 20px; }
+  .parallax-container h1 {
+    color: white; }
+  .parallax-container p {
+    color: white;
+    width: 75%;
+    margin: auto;
+    font-size: 19px; }
+
 .search #map {
   height: 500px;
   width: 100%;
@@ -523,6 +536,14 @@ template {
 
 .search .search-right {
   width: 150px; }
+
+.card-image {
+  min-height: 215px;
+  max-height: 215px; }
+
+.card-title {
+  line-height: 20px !important;
+  font-size: 19px !important; }
 
 .menuD {
   right: 6px;
@@ -536,7 +557,8 @@ template {
   height: 200px;
   background-size: cover; }
 
-.small {
-  float: right; }
+i.medium {
+  float: right;
+  font-size: 3rem !important; }
 
 /*# sourceMappingURL=maps/bundle.css.map */

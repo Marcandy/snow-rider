@@ -71,7 +71,7 @@ angular.module('snowrider')
             });
 
             google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent('<br>' + place.name + '<br>' + place.formatted_address);
+                infowindow.setContent(place.icon + '<br>' + place.name + '<br>' + place.formatted_address);
                 // infowindow.setContent(place.formatted_address);
 
                 infowindow.open(map, this);

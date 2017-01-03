@@ -23,15 +23,15 @@ angular.module('snowrider')
         this.getPhoto = function (reference) {
           return $http({
             method: 'GET',
-            url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key,
+            url: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + reference + key
             //  'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU' + key,
-             responseType: 'arraybuffer'
+            //  responseType: 'arraybuffer'
             //
           })
           .then(function (res) {
 
-            let blob = new Blob([res.data], {type: imageType});
-            return (window.URL || window.webkitURL).createObjectURL(blob);
+            return res.data;
+
             // var convertImg = _arrayBufferToBase64(response.data);
             // console.log(convertImg);
             // return convertImg;
@@ -40,19 +40,19 @@ angular.module('snowrider')
           })
         }
 
-        function _arrayBufferToBase64(buffer) {
-          var binary = '';
-          var bytes = new Uint8Array(buffer);
-          var len = bytes.byteLength;
-          for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-          }
-          return window.btoa(binary);
-        }
+        // function _arrayBufferToBase64(buffer) {
+        //   var binary = '';
+        //   var bytes = new Uint8Array(buffer);
+        //   var len = bytes.byteLength;
+        //   for (var i = 0; i < len; i++) {
+        //     binary += String.fromCharCode(bytes[i]);
+        //   }
+        //   return window.btoa(binary);
+        // }
 
 
         this.getResorts = function(geo) { // when to convert the user iputed city name or zipcode
-          var deferred = $q.defer()
+          var deferred = $q.defer();
 
             if (geo) {
                 location = '&location=' + geo.lat + ',' + geo.lng; //had to reset the location parameter correctly
@@ -75,6 +75,10 @@ angular.module('snowrider')
             }).then(function(response ) {
                 console.log(response);
                 resorts = response.data.results;
+                  /// omg you can actually get the reference by google map api photo url thne
+                  /// putting your refernce after and api
+
+                  
 
 
                   // for (var i = 0; i < resorts.length; i++) {
@@ -94,15 +98,27 @@ angular.module('snowrider')
                   // }
 
                   for (var i = 0; i < resorts.length; i++) {
-                    var ref = response.data.results[i].photos["0"].photo_reference;
 
-                    mainService.getPhoto(ref).then(function (i, response) {
-                      resorts[i].photos = response.data;
 
-                      console.log(resorts);
-                    }.bind(null, i));
-                  }
+                    // mainService.getPhoto( response.data.results[i].photos[0].photo_reference).then(function (i, photo) {
+                    //   // let blob = new Blob([response.data], {type: imageType});
+                    //   // return (window.URL || window.webkitURL).createObjectURL(blob);
+                    //
+                    //   response.data.results[i].photos = photo;
+                    //
+                    //   console.log(resorts);
+                    // }.bind(null, i));
+                    // var service = new google.maps.places.PlacesService(map);
 
+                    service.getDetails({
+                      placeId: resorst[i].placeId
+                    }, function(place, status) {
+                      console.log('hey');
+                      resorts[i] = place;
+
+
+                })
+              }
 
 
 

@@ -85,13 +85,15 @@ angular.module('snowrider')
                   for (var i = 0; i < resorts.length; i++) {
                     if (resorts[i].photos) {
                        ref = resorts[i].photos[0].photo_reference;
+
+                       resorts[i].photo = phourl + ref + key;
                     }else {
-                      ref = resorts[i].reference;
+                      resorts[i].photo = 'img/jumbimg.png';
                     }
 
 
 
-                    resorts[i].photo = phourl + ref + key;
+
                     // mainService.getPhoto( response.data.results[i].photos[0].photo_reference).then(function (i, photo) {
                     //   // let blob = new Blob([response.data], {type: imageType});
                     //   // return (window.URL || window.webkitURL).createObjectURL(blob);

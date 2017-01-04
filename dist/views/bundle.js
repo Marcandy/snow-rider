@@ -370,16 +370,6 @@ var gears = [{
 }];
 'use strict';
 
-angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
-
-  $scope.val = false;
-
-  $(document).ready(function () {
-    $('.parallax').parallax();
-  });
-});
-'use strict';
-
 angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
     $scope.vid = $sce.trustAsResourceUrl('../img/jumbo.mp4');
 }).directive('jumboDirective', function () {
@@ -404,6 +394,22 @@ angular.module('snowrider').controller('jumboCtrl', function ($scope, $sce) {
         }
 
     };
+});
+'use strict';
+
+angular.module('snowrider').controller('guidesCtrl', function ($scope, $sce) {
+
+  $scope.val = false;
+
+  $(document).ready(function () {
+    $('.parallax').parallax();
+  });
+
+  AOS.init({
+    duration: 1300,
+    easing: 'ease-in-out-back'
+
+  });
 });
 'use strict';
 

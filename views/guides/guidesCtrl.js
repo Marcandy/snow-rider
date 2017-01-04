@@ -6,5 +6,12 @@ angular.module('snowrider')
     $(document).ready(function(){
       $('.parallax').parallax();
     });
-        
+
+
+    AOS.init({
+    duration: 1300,
+    easing: 'ease-in-out-back'
+
+    });
+
   })

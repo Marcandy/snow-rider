@@ -495,6 +495,10 @@ template {
       height: 325px;
       width: 385px; }
 
+.carousel-text {
+  text-align: center;
+  color: white; }
+
 .guides {
   color: white;
   font-family: 'Alegreya', serif;
@@ -517,14 +521,15 @@ template {
   text-align: center; }
 
 .parallax-container {
-  margin: 20px; }
+  margin: 10px; }
   .parallax-container h1 {
     color: white; }
   .parallax-container p {
     color: white;
     width: 75%;
     margin: auto;
-    font-size: 19px; }
+    font-size: 19px;
+    font-weight: bold; }
 
 .search #map {
   height: 500px;

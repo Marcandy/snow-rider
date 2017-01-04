@@ -231,7 +231,7 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
         //creating the new map with the geocode of the currentL
         map = new google.maps.Map(document.getElementById('map'), {
             center: currentL,
-            zoom: 12
+            zoom: 10
         });
 
         infowindow = new google.maps.InfoWindow();
@@ -278,7 +278,7 @@ angular.module('snowrider').service('mapService', function ($http, mainService) 
         });
 
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(place.icon + '<br>' + place.name + '<br>' + place.formatted_address);
+            infowindow.setContent(place.name + '<br>' + place.formatted_address);
             // infowindow.setContent(place.formatted_address);
 
             infowindow.open(map, this);

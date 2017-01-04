@@ -23,11 +23,14 @@
 }
 
 .card-image {
-  min-height: 215px;
-  max-height: 215px;
+  min-height: 210px;
+  max-height: 210px;
 }
 
 .card-title {
-      line-height: 20px !important;
-          font-size: 19px !important;
+      line-height: 19px !important;
+      font-size: 18px !important;
+}
+.card-content {
+  max-height: 84px
 }

@@ -441,7 +441,7 @@ template {
       color: #9a9a9a;
       display: block; }
       .jumbo .jumbo-text div h1 {
-        font-size: 60px;
+        font-size: 55px;
         line-height: 70px;
         color: #393939;
         font-weight: normal;
@@ -451,7 +451,7 @@ template {
         line-height: 45px;
         color: #656565; }
       .jumbo .jumbo-text div a {
-        background-color: #393939;
+        background-color: #00A2B4;
         font-size: 14px;
         line-height: 22.54px;
         font-weight: normal;
@@ -521,7 +521,7 @@ template {
   text-align: center; }
 
 .parallax-container {
-  margin: 10px; }
+  margin: 10px 0; }
   .parallax-container h1 {
     color: white; }
   .parallax-container p {
@@ -543,12 +543,15 @@ template {
   width: 150px; }
 
 .card-image {
-  min-height: 215px;
-  max-height: 215px; }
+  min-height: 210px;
+  max-height: 210px; }
 
 .card-title {
-  line-height: 20px !important;
-  font-size: 19px !important; }
+  line-height: 19px !important;
+  font-size: 18px !important; }
+
+.card-content {
+  max-height: 84px; }
 
 .menuD {
   right: 6px;

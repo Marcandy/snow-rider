@@ -13,7 +13,7 @@ angular.module('snowrider')
                 // {lat: Number(geo.lat), lng: Number(geo.lng)
             } else {
                 currentL = {
-                    lat: Number(mainService.lat),
+                    lat: Number(mainService.lat), // for some reson loacting San jose, find out why the initial lat lon not working
                     lng: Number(mainService.long)
                 };
             }
